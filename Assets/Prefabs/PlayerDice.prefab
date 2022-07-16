@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1195044707160032128}
   - component: {fileID: -3366156315905218372}
   - component: {fileID: 3168421888258740372}
+  - component: {fileID: 3915366150253071268}
   m_Layer: 0
   m_Name: PlayerDice
   m_TagString: Untagged
@@ -121,7 +122,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &3168421888258740372
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -135,3 +136,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.012499999, y: 0.012500003, z: 0.012500003}
   m_Center: {x: 0.00005653384, y: 0.006249996, z: -0.000056533376}
+--- !u!114 &3915366150253071268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195044707150688320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b43d774c6a083e4eb3773ec58b74675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
