@@ -27,6 +27,8 @@ public class DiceSoundController : MonoBehaviour
     public void Trigger() {
         Debug.Log("Trigger Dice Sound");
         AudioClip clip = GetClip();
-        audioSource.PlayOneShot(clip);
+        if (clip != null) {
+            audioSource.PlayOneShot(clip);
+        }
     }
 }

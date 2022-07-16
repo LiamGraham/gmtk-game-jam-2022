@@ -153,6 +153,9 @@ MonoBehaviour:
   m_ImplusePosition: 0.05
   m_Active: 1
   random_dir: 30
+  CollidedEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &-8746451134406343084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee3729641df538488889aedbf6345bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: bc515a4076fe180488d10e10eb18134c, type: 3}
+  - {fileID: 8300000, guid: 640a45bb8140ab1499e0bdfcd7f5e8ce, type: 3}
+  - {fileID: 8300000, guid: 302a6fc3c5f021f4b9b2a92af945b9f9, type: 3}
