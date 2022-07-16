@@ -48,6 +48,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Finish
       objectReference: {fileID: 0}
+    - target: {fileID: 1712476944434893915, guid: a15fdd454481e18438e111c3231d48d0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1730891632690858580, guid: a15fdd454481e18438e111c3231d48d0, type: 3}
       propertyPath: m_Enabled
       value: 1
