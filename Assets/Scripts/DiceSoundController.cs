@@ -7,11 +7,19 @@ public class DiceSoundController : MonoBehaviour
     AudioSource audioSource;
     public AudioClip[] clips;
     int lastIndex = 0;
+    private static DiceSoundController _instance;
+    public static DiceSoundController Instance { get { return _instance; } }
+    // Start is called before the first frame update
+    void Awake()
+    {
+        if (_instance == null) {
+            _instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerDice.Instance.CollidedEvent.AddListener(Trigger);
         audioSource = GetComponent<AudioSource>();
     }
 

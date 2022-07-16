@@ -5,15 +5,14 @@ using UnityEngine.Events;
 
 public class PlayerDice : MonoBehaviour
 {
-
+    private const int CORNERS = 8;
     public float m_ImpluseForce = 5f;
     public float m_ImplusePosition = 0.05f;
     public bool m_Active = true;
     public float random_dir = 30f;
+    public GameObject diceVertexPrefab;
     Rigidbody m_Rigidbody;
     
-    public UnityEvent CollidedEvent;
-
     private static PlayerDice _instance;
     public static PlayerDice Instance { get { return _instance; } }
 
@@ -21,7 +20,7 @@ public class PlayerDice : MonoBehaviour
         if (_instance == null) {
             _instance = this;
         }
-        CollidedEvent = new();
+        CreateVertexSensors();
     }
 
     // Start is called before the first frame update
@@ -48,7 +47,17 @@ public class PlayerDice : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision) {
-        CollidedEvent.Invoke();
+    void CreateVertexSensors() {
+        BoxCollider diceCollider = GetComponent<BoxCollider>(); 
+        Bounds diceBounds = diceCollider.bounds;
+        Vector3 minOffset = diceBounds.min - diceBounds.center;
+        Vector3 maxOffset = diceBounds.max - diceBounds.center;
+
+        for (int i = 0; i < 4; i++) {
+            Vector3 minPos = (Quaternion.Euler(0, 90 * i, 0) * minOffset) + diceBounds.center;
+            Instantiate(diceVertexPrefab, minPos, Quaternion.identity, this.transform);
+            Vector3 maxPos = (Quaternion.Euler(0, 90 * i, 0) * maxOffset) + diceBounds.center;
+            Instantiate(diceVertexPrefab, maxPos, Quaternion.identity, this.transform);
+        }
     }
 }
