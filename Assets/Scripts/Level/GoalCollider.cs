@@ -10,7 +10,7 @@ public class GoalCollider : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        var playerDiceComponent = other.GetComponent<PlayerDice>();
+        var playerDiceComponent = other.GetPlayerDiceComponent();
 
         if (playerDiceComponent == null) return;
 

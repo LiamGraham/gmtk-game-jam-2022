@@ -18,10 +18,7 @@ public partial class GameManager : MonoBehaviour, IDisposable
     void GoalReached()
     {
         state = GameState.ObjectiveAchieved;
-        for (int i = 0; i < 10; i++)
-        {
-            Debug.Log("Goal Reached!");
-        }
+        Debug.Log("Goal Reached!");
     }
 
     public void Dispose()
