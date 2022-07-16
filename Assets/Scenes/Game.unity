@@ -156,11 +156,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.149
+      value: 1.1153
       objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.352
+      value: -0.47
       objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_LocalRotation.w
@@ -269,6 +269,7 @@ GameObject:
   - component: {fileID: 976659853}
   - component: {fileID: 976659852}
   - component: {fileID: 976659855}
+  - component: {fileID: 976659856}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -334,14 +335,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 976659851}
-  m_LocalRotation: {x: 0, y: 0.96186084, z: -0.2735395, w: 0}
-  m_LocalPosition: {x: 3.348, y: 11.01, z: -0.97}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: -0.5}
+  m_LocalPosition: {x: 3, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 31.75, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 270, z: 0}
 --- !u!114 &976659855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,11 +355,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216fda07ac1e198499b6f0d91b05bd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Player: {fileID: 1020000384}
-  m_OffsetY: {x: 0, y: 0.5, z: 0}
-  m_MinDistance: 2.5
-  m_InterpolationSpeed: 0.2
-  m_EnableSmooth: 1
+  Player: {fileID: 1020000384}
+  Offset: {x: 0, y: 0.5, z: 0}
+  MinDistance: 3
+  InterpolationSpeed: 2
+  EnableSmooth: 1
+--- !u!114 &976659856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 976659851}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3040f717ef2c04a4a97592dc0f20fd4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartOffset: {x: 20, y: 20, z: 0}
+  EndOffset: {x: 0, y: 0.5, z: 0}
+  Duration: 2
+  RunOnStart: 1
 --- !u!1 &1020000384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195044707150688320, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
