@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
     private void AimPlayer()
     {
         //do aiming stuff
-        if (!Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
             //right mouse pressed, rotating changes camera
             DestroyShotIndicator();
