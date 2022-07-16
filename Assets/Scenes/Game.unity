@@ -130,25 +130,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -3366156315905218372, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_LocalPosition.x
@@ -194,14 +178,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerDice
       objectReference: {fileID: 0}
-    - target: {fileID: 3915366150253071268, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: m_ImpluseForce
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 6411407553922101897, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
-      propertyPath: collisionWindow
-      value: 15
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
 --- !u!114 &177370580 stripped
@@ -222,10 +198,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 390157082545072041, guid: c81fbe22dbdc4f34ead96b3e1bf973f7, type: 3}
-      propertyPath: maxImpulse
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 390157082545072041, guid: c81fbe22dbdc4f34ead96b3e1bf973f7, type: 3}
       propertyPath: playerDice
       value: 
@@ -408,23 +380,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1195044707150688320, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
   m_PrefabInstance: {fileID: 177370579}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1090022695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4629145435416731195, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-  m_PrefabInstance: {fileID: 726495226}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1090022696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1090022695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d632952cc9a48a144ab5612b6ad3b6c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1172832013
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,6 +546,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8839784549165916195, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
+      propertyPath: EndOffset.y
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 8839784549165916216, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
       propertyPath: m_Name
       value: Main Camera
@@ -599,18 +558,6 @@ PrefabInstance:
       propertyPath: Player
       value: 
       objectReference: {fileID: 1020000384}
-    - target: {fileID: 8839784549165916220, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
-      propertyPath: Offset.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 8839784549165916220, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
-      propertyPath: MinDistance
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8839784549165916220, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
-      propertyPath: InterpolationSpeed
-      value: 2.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8839784549165916221, guid: 6bb271f9d441e5d418cf31cecf87fe92, type: 3}
       propertyPath: m_RootOrder
       value: 0
