@@ -18,13 +18,14 @@ public class ShotIndicator : MonoBehaviour
     {
         transform.rotation = Quaternion.LookRotation(-Vector3.up, Vector3.forward);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        setPower(0.8f);
     }
 
     // // Update is called once per frame
     void Update()
     {
-        setDirection(player.transform.position - transform.position);
-        setPower((player.transform.position - transform.position).magnitude/6f);
+        // setDirection(player.transform.position - transform.position);
+        // setPower((player.transform.position - transform.position).magnitude/6f);
     }
 
     public void setPower(float power) {
@@ -34,7 +35,7 @@ public class ShotIndicator : MonoBehaviour
 
         //set length
         var newLength = minLength + (maxLength - minLength) * power;
-        transform.localScale = (new Vector3(1, newLength, 1)) * initialScale;
+        transform.localScale = (new Vector3(0.4f, newLength, 1)) * initialScale;
         //set alpha
         var newAlpha = (minAlpha + (maxAlpha - minAlpha) * power);
         var newColor = new Color(spriteRenderer.color.r, spriteRenderer.color.g, spriteRenderer.color.b, newAlpha);
