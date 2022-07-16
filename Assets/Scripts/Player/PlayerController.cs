@@ -19,26 +19,51 @@ public class PlayerController : MonoBehaviour
     public float maxImpulse = 20f;
     public float defaultTorque = 30f;
 
-    public PlayerState State => playerState;
+    /// <summary>
+    /// The current state of the player controller
+    /// </summary>
+    public PlayerState State { get; private set; }
+
+    /// <summary>
+    /// The location of the player from the last time it was fired
+    /// </summary>
+    public Vector3 PreviousPlayerPosition { get; private set; }
+
+    /// <summary>
+    /// The rotation of the player from the last time it was fired
+    /// </summary>
+    public Quaternion PreviousPlayerRotation { get; private set; }
 
     //referance to shotIndicator INSTANCE
     ShotIndicator shotIndicator;
-    PlayerState playerState;
 
     void Start()
     {
-        playerState = PlayerState.Aiming;
-        playerDice.OnPlayerStationary.AddListener(OnPlayerStationary);
+        State = PlayerState.Aiming;
+
+        SetPreviousPlayerPosition();
+
+        // Add event listeners
+        playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
+        LevelEventManager.Died?.AddListener(OnPlayerDied);
+    }
+
+    private void OnPlayerDied()
+    {
+        State = PlayerState.Aiming;
+
+        // Return to previous location
+        playerDice.ResetToPosition(PreviousPlayerPosition, PreviousPlayerRotation);
     }
 
     //Update is called once per frame
     void Update()
     {
-        if (playerState == PlayerState.Inactive)
+        if (State == PlayerState.Inactive)
         {
             //do nothing
         }
-        else if (playerState == PlayerState.Aiming)
+        else if (State == PlayerState.Aiming)
         {
             AimPlayer();
         }
@@ -46,9 +71,11 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerStationary()
     {
         // If we're flying and now stationary, chage state to aiming
-        if (playerState == PlayerState.Flying)
+        if (State == PlayerState.Flying)
         {
-            playerState = PlayerState.Aiming;
+            State = PlayerState.Aiming;
+
+            SetPreviousPlayerPosition();
         }
     }
 
@@ -76,7 +103,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //FIRE
-            playerState = PlayerState.Flying;
+            State = PlayerState.Flying;
             DestroyShotIndicator();
             CreateDiceImpulse();
         }
@@ -126,10 +153,9 @@ public class PlayerController : MonoBehaviour
         // playerDice.addTorque((new Vector3(1,0,0) * ));
     }
 
-    //this class with likely consume a bunch of signals and we probably won't need
-    //a public function for 
-    public void SetPlayerState(PlayerState newState)
+    private void SetPreviousPlayerPosition()
     {
-        playerState = newState;
+        PreviousPlayerPosition = playerDice.transform.position;
+        PreviousPlayerRotation = playerDice.transform.rotation;
     }
 }

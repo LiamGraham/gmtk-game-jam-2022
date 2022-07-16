@@ -10,7 +10,7 @@ public class PlayerDice : MonoBehaviour
     public GameObject DiceVertexPrefab;
 
     new Rigidbody rigidbody;
-    
+
     private static PlayerDice _instance;
     public static PlayerDice Instance { get { return _instance; } }
 
@@ -23,8 +23,10 @@ public class PlayerDice : MonoBehaviour
 
     private bool inMovement = false;
 
-    void Awake() {
-        if (_instance == null) {
+    void Awake()
+    {
+        if (_instance == null)
+        {
             _instance = this;
         }
         else
@@ -52,33 +54,47 @@ public class PlayerDice : MonoBehaviour
         {
             inMovement = true;
         }
-        else if (inMovement && IsStationary()) {
+        else if (inMovement && IsStationary())
+        {
             OnPlayerStationary.Invoke();
             inMovement = false;
         }
     }
 
+    public void ResetToPosition(Vector3 position, Quaternion rotation)
+    {
+        transform.position = position;
+        transform.rotation = rotation;
+
+        rigidbody.velocity = Vector3.zero;
+        rigidbody.angularVelocity = Vector3.zero;
+    }
+
     public bool IsStationary()
     {
-        return rigidbody.velocity.magnitude < 0.001 
+        return rigidbody.velocity.magnitude < 0.001
             && rigidbody.angularVelocity.magnitude < 0.001;
     }
 
-    public void AddForce(Vector3 force) {
+    public void AddForce(Vector3 force)
+    {
         rigidbody.AddForce(force, ForceMode.Impulse);
     }
 
-    public void AddTorque(Vector3 torque) {
+    public void AddTorque(Vector3 torque)
+    {
         rigidbody.AddTorque(torque, ForceMode.Impulse);
     }
 
-    void CreateVertexSensors() {
-        BoxCollider diceCollider = GetComponent<BoxCollider>(); 
+    void CreateVertexSensors()
+    {
+        BoxCollider diceCollider = GetComponent<BoxCollider>();
         Bounds diceBounds = diceCollider.bounds;
         Vector3 minOffset = diceBounds.min - diceBounds.center;
         Vector3 maxOffset = diceBounds.max - diceBounds.center;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++)
+        {
             Vector3 minPos = (Quaternion.Euler(0, 90 * i, 0) * minOffset) + diceBounds.center;
             Instantiate(DiceVertexPrefab, minPos, Quaternion.identity, transform);
             Vector3 maxPos = (Quaternion.Euler(0, 90 * i, 0) * maxOffset) + diceBounds.center;
