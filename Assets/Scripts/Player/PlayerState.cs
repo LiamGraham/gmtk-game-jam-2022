@@ -1,1 +1,6 @@
-﻿public enum PlayerState { Inactive, Aiming, Flying }
+﻿public enum PlayerState
+{
+    Inactive,
+    Aiming,
+    Flying
+}
