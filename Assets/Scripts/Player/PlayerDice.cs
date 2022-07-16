@@ -5,51 +5,64 @@ using UnityEngine.Events;
 
 public class PlayerDice : MonoBehaviour
 {
-    public float m_ImpluseForce = 5f;
-    public float m_ImplusePosition = 0.05f;
-    public GameObject diceVertexPrefab;
-    Rigidbody m_Rigidbody;
+    public float ImpluseForce = 5f;
+    public float ImplusePosition = 0.05f;
+    public GameObject DiceVertexPrefab;
+
+    new Rigidbody rigidbody;
     
     private static PlayerDice _instance;
     public static PlayerDice Instance { get { return _instance; } }
 
-    public Vector3 worldCenterOfMass {get {return m_Rigidbody.worldCenterOfMass; }}
+    public Vector3 WorldCenterOfMass => rigidbody.worldCenterOfMass;
+
+    /// <summary>
+    /// Triggered once the player dice has stopped moving, i.e. Velocity is 0 and angular momentum is 0.
+    /// </summary>
+    public UnityEvent OnPlayerStationary;
 
     void Awake() {
         if (_instance == null) {
             _instance = this;
         }
+        else
+        {
+             // Is it possible to have multiple dice?
+            Debug.LogError("There should only be one player dice.");
+        }
+
         CreateVertexSensors();
+
+        OnPlayerStationary = new();
     }
 
-    public static UnityEvent PlayerStationary = new();
 
     // Start is called before the first frame update
     void Start()
     {
-        this.m_Rigidbody = GetComponent<Rigidbody>();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (IsStationary()) {
-            PlayerStationary.Invoke();
+            OnPlayerStationary.Invoke();
         }
     }
 
     public bool IsStationary()
     {
-        return m_Rigidbody.velocity.magnitude < 0.01 
-            && m_Rigidbody.angularVelocity.magnitude < 0.01;
+        return rigidbody.velocity.magnitude < 0.01 
+            && rigidbody.angularVelocity.magnitude < 0.01;
     }
 
-    public void addForce(Vector3 force) {
-        m_Rigidbody.AddForce(force, ForceMode.Impulse);
+    public void AddForce(Vector3 force) {
+        rigidbody.AddForce(force, ForceMode.Impulse);
     }
 
-    public void addTorque(Vector3 torque) {
-        m_Rigidbody.AddTorque(torque, ForceMode.Impulse);
+    public void AddTorque(Vector3 torque) {
+        rigidbody.AddTorque(torque, ForceMode.Impulse);
     }
 
     void CreateVertexSensors() {
@@ -60,9 +73,9 @@ public class PlayerDice : MonoBehaviour
 
         for (int i = 0; i < 4; i++) {
             Vector3 minPos = (Quaternion.Euler(0, 90 * i, 0) * minOffset) + diceBounds.center;
-            Instantiate(diceVertexPrefab, minPos, Quaternion.identity, this.transform);
+            Instantiate(DiceVertexPrefab, minPos, Quaternion.identity, transform);
             Vector3 maxPos = (Quaternion.Euler(0, 90 * i, 0) * maxOffset) + diceBounds.center;
-            Instantiate(diceVertexPrefab, maxPos, Quaternion.identity, this.transform);
+            Instantiate(DiceVertexPrefab, maxPos, Quaternion.identity, transform);
         }
     }
 }
