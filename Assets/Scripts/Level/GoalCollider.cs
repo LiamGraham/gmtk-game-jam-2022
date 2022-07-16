@@ -8,6 +8,11 @@ public class GoalCollider : MonoBehaviour
 {
     private bool goalReached = false;
 
+    private void Start()
+    {
+        goalReached = false;
+    }
+
     private void OnTriggerStay(Collider other)
     {
         var playerDiceComponent = other.GetPlayerDiceComponent();
@@ -20,7 +25,7 @@ public class GoalCollider : MonoBehaviour
         if (!goalReached && playerDiceComponent.IsStationary())
         {
             goalReached = true;
-            LevelEventManager.GoalAchieved?.Invoke();
+            LevelEventManager.ObjectiveAchieved?.Invoke();
         }
     }
 }

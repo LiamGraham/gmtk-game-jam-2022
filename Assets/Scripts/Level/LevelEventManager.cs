@@ -6,6 +6,6 @@
 /// </summary>
 public static class LevelEventManager
 {
-    public static UnityEvent GoalAchieved = new();
+    public static UnityEvent ObjectiveAchieved = new();
     public static UnityEvent Died = new();
 }

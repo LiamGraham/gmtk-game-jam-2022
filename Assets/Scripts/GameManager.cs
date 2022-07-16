@@ -7,22 +7,22 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
-    private GameState state;
+    public GameState State { get; private set; }
 
     private void Start()
     {
-        state = GameState.Starting;
-        LevelEventManager.GoalAchieved?.AddListener(GoalReached);
+        State = GameState.Starting;
+        LevelEventManager.ObjectiveAchieved?.AddListener(ObjectiveAchieved);
     }
 
-    void GoalReached()
+    void ObjectiveAchieved()
     {
-        state = GameState.ObjectiveAchieved;
+        State = GameState.ObjectiveAchieved;
         Debug.Log("Goal Reached!");
     }
 
     public void Dispose()
     {
-        LevelEventManager.GoalAchieved?.RemoveListener(GoalReached);
+        LevelEventManager.ObjectiveAchieved?.RemoveListener(ObjectiveAchieved);
     }
 }
