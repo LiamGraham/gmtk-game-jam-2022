@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public float maxImpulse = 20f;
     public float defaultTorque = 30f;
 
+    public PlayerState State => playerState;
+
     //referance to shotIndicator INSTANCE
     ShotIndicator shotIndicator;
     PlayerState playerState;
@@ -26,6 +28,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         playerState = PlayerState.Aiming;
+        playerDice.OnPlayerStationary.AddListener(OnPlayerStationary);
     }
 
     //Update is called once per frame
@@ -39,13 +42,13 @@ public class PlayerController : MonoBehaviour
         {
             AimPlayer();
         }
-        else if (playerState == PlayerState.Flying)
+    }
+    private void OnPlayerStationary()
+    {
+        // If we're flying and now stationary, chage state to aiming
+        if (playerState == PlayerState.Flying)
         {
-            //do flying stuff
-            if (playerDice.IsStationary())
-            {
-                playerState = PlayerState.Aiming;
-            }
+            playerState = PlayerState.Aiming;
         }
     }
 
@@ -84,6 +87,7 @@ public class PlayerController : MonoBehaviour
         if (shotIndicator != null)
         {
             Destroy(shotIndicator.gameObject);
+            shotIndicator = null;
         }
     }
 

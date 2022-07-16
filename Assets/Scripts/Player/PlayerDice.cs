@@ -21,13 +21,15 @@ public class PlayerDice : MonoBehaviour
     /// </summary>
     public UnityEvent OnPlayerStationary;
 
+    private bool inMovement = false;
+
     void Awake() {
         if (_instance == null) {
             _instance = this;
         }
         else
         {
-             // Is it possible to have multiple dice?
+            // Is it possible to have multiple dice?
             Debug.LogError("There should only be one player dice.");
         }
 
@@ -46,15 +48,20 @@ public class PlayerDice : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (IsStationary()) {
+        if (!inMovement && !IsStationary())
+        {
+            inMovement = true;
+        }
+        else if (inMovement && IsStationary()) {
             OnPlayerStationary.Invoke();
+            inMovement = false;
         }
     }
 
     public bool IsStationary()
     {
-        return rigidbody.velocity.magnitude < 0.01 
-            && rigidbody.angularVelocity.magnitude < 0.01;
+        return rigidbody.velocity.magnitude < 0.001 
+            && rigidbody.angularVelocity.magnitude < 0.001;
     }
 
     public void AddForce(Vector3 force) {
