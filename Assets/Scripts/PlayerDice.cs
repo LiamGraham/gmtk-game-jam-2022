@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerDice : MonoBehaviour
 {
@@ -10,6 +11,18 @@ public class PlayerDice : MonoBehaviour
     public bool m_Active = true;
     public float random_dir = 30f;
     Rigidbody m_Rigidbody;
+    
+    public UnityEvent CollidedEvent;
+
+    private static PlayerDice _instance;
+    public static PlayerDice Instance { get { return _instance; } }
+
+    void Awake() {
+        if (_instance == null) {
+            _instance = this;
+        }
+        CollidedEvent = new();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -33,5 +46,9 @@ public class PlayerDice : MonoBehaviour
                 this.m_Active = true;
             }
         }
+    }
+
+    void OnCollisionEnter(Collision collision) {
+        CollidedEvent.Invoke();
     }
 }

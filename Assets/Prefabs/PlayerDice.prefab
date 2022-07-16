@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -3366156315905218372}
   - component: {fileID: 3168421888258740372}
   - component: {fileID: 3915366150253071268}
+  - component: {fileID: -8746451134406343084}
   m_Layer: 0
   m_Name: PlayerDice
   m_TagString: Untagged
@@ -146,5 +147,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b43d774c6a083e4eb3773ec58b74675, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpluseForce: 5
+  m_ImplusePosition: 0.05
+  m_Active: 1
+  random_dir: 30
+--- !u!114 &-8746451134406343084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195044707150688320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee3729641df538488889aedbf6345bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
