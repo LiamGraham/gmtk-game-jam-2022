@@ -1,0 +1,1 @@
+public enum CameraState { Follow, Free }
