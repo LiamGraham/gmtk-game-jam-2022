@@ -5,17 +5,11 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject player;
-
-    // Following Camera Settings
-    public Vector3 offset = new Vector3(0, 3, -15);
-    public Vector3 rotationOffset = new Vector3(10, 0, 0);
-
-    // Smooth camera settings
-    public float interpolationSpeed = 0.05f;
-    public bool enableSmooth = true;
-
-    private Vector3 rotationMultiplier = new Vector3(1, 1, 0);
+    public GameObject m_Player;
+    public Vector3 m_OffsetY = new Vector3(0, 0.5f, 0);
+    public float m_MinDistance = 3f;
+    public float m_InterpolationSpeed = 2f;
+    public bool m_EnableSmooth = true;
 
     void LateUpdate()
     {
@@ -24,30 +18,21 @@ public class FollowPlayer : MonoBehaviour
 
     private void PositionFollowCamera()
     {
-        float interpolationRatio = Mathf.Min(interpolationSpeed * Time.deltaTime, 1);
-
-        // Multiply by the rotation multiplier (to set z to 0)
-        var playerRotationAngles = Vector3.Scale(player.transform.rotation.eulerAngles, rotationMultiplier);
-        // Calculate desired rotation of camera
-        var desiredRotation = CalculateDesiredRotation(playerRotationAngles, rotationOffset);
-        var desiredOffset = CalculateDesiredOffset(playerRotationAngles, offset);
-
+        float interpolationRatio = Mathf.Min(m_InterpolationSpeed * Time.deltaTime, 1);
+        //current player direction
+        var playerDirection = m_Player.transform.position - transform.position;
+        //goal player direction
+        playerDirection.y = 0;
+        playerDirection = (playerDirection.normalized) * m_MinDistance;
+        var goalPlayerDirection = playerDirection - m_OffsetY;
+        //goal rotation
+        var goalRotation = Quaternion.LookRotation(goalPlayerDirection, Vector3.up);
+        //goal position
+        var goalPosition = m_Player.transform.position - goalPlayerDirection;
 
         // Here we use linear interpolation for smooth camera movement
-        transform.position = enableSmooth ? Vector3.Lerp(transform.position, desiredOffset, interpolationRatio) : desiredOffset;
-        transform.rotation = enableSmooth ? Quaternion.Lerp(transform.rotation, desiredRotation, interpolationRatio) : desiredRotation;
+        transform.position = m_EnableSmooth ? Vector3.Lerp(transform.position, goalPosition, interpolationRatio) : goalPosition;
+        transform.rotation = m_EnableSmooth ? Quaternion.Lerp(transform.rotation, goalRotation, interpolationRatio) : goalRotation;
     }
 
-    private Quaternion CalculateDesiredRotation(Vector3 playerRotationAngles, Vector3 rotationOffset)
-    {
-        // Calculate desired rotation of camera
-        return Quaternion.Euler(playerRotationAngles + rotationOffset);
-    }
-
-    private Vector3 CalculateDesiredOffset(Vector3 playerRotationAngles, Vector3 cameraOffset)
-    {
-        // Calculate rotation offset for camera based on offset
-        var rotatedOffset = Quaternion.Euler(playerRotationAngles) * cameraOffset;
-        return player.transform.position + rotatedOffset;
-    }
 }

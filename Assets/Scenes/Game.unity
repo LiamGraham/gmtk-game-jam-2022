@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -3366156315905218372, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1195044707150523488, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -189,6 +193,10 @@ PrefabInstance:
     - target: {fileID: 1195044707150688320, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
       propertyPath: m_Name
       value: PlayerDice
+      objectReference: {fileID: 0}
+    - target: {fileID: 3915366150253071268, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
+      propertyPath: m_ImpluseForce
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc459aea28d29bd44b255cf38b855428, type: 3}
@@ -346,11 +354,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216fda07ac1e198499b6f0d91b05bd91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1020000384}
-  offset: {x: 0, y: 1, z: -2}
-  rotationOffset: {x: 30, y: 0, z: 0}
-  interpolationSpeed: 1
-  enableSmooth: 1
+  m_Player: {fileID: 1020000384}
+  m_OffsetY: {x: 0, y: 0.5, z: 0}
+  m_MinDistance: 2.5
+  m_InterpolationSpeed: 0.2
+  m_EnableSmooth: 1
 --- !u!1 &1020000384 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1195044707150688320, guid: bc459aea28d29bd44b255cf38b855428, type: 3}

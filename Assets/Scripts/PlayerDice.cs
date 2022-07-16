@@ -24,8 +24,8 @@ public class PlayerDice : MonoBehaviour
             if (Input.GetButtonDown("Fire1")) {
                 Vector3 ImpulseDir = Quaternion.Euler(Random.Range(-random_dir, random_dir), Random.Range(-random_dir,random_dir), Random.Range(-random_dir,random_dir)) * (Vector3.up * this.m_ImpluseForce);
                 //below for add force at position
-                // Vector3 ImpulsePosition = Quaternion.Euler(Random.Range(-random_dir, random_dir), Random.Range(-random_dir,random_dir), Random.Range(-random_dir,random_dir)) * (Vector3.down * this.m_ImplusePosition);
-                this.m_Rigidbody.AddForce(ImpulseDir);
+                Vector3 ImpulsePosition = Quaternion.Euler(Random.Range(-random_dir, random_dir), Random.Range(-random_dir,random_dir), Random.Range(-random_dir,random_dir)) * (Vector3.down * this.m_ImplusePosition);
+                this.m_Rigidbody.AddForceAtPosition(ImpulseDir, ImpulsePosition);
                 // this.m_Active = false;
             }
         } else {
