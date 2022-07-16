@@ -153,8 +153,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ImpluseForce: 5
   m_ImplusePosition: 0.05
-  m_Active: 1
-  random_dir: 30
   diceVertexPrefab: {fileID: 5104769325716049150, guid: c9ca2bf11639c584d8871620632e520c, type: 3}
 --- !u!82 &4358507390307929167
 AudioSource:
@@ -168,7 +166,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.655
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -265,19 +263,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   clips:
-  - {fileID: 8300000, guid: bc515a4076fe180488d10e10eb18134c, type: 3}
-  - {fileID: 8300000, guid: 640a45bb8140ab1499e0bdfcd7f5e8ce, type: 3}
-  - {fileID: 8300000, guid: 302a6fc3c5f021f4b9b2a92af945b9f9, type: 3}
-  - {fileID: 8300000, guid: a1cdcd2b754e99d49bd77a44f46e3cb1, type: 3}
-  - {fileID: 8300000, guid: a88806b45adb0ad4a9e5965c04d66e26, type: 3}
-  - {fileID: 8300000, guid: a73819ea6539afd43a47fb7beb39c5ee, type: 3}
-  - {fileID: 8300000, guid: 545b74a801460ef4696894d403e6add2, type: 3}
-  - {fileID: 8300000, guid: 852f15aff4a2ea346a1198c4aac0c70d, type: 3}
-  - {fileID: 8300000, guid: 18c4a4748fb1dfd4589a1ed1eb54df81, type: 3}
-  - {fileID: 8300000, guid: 7a865b6d2449f3d46a2455d722115fde, type: 3}
-  - {fileID: 8300000, guid: 8a06930523c91da4a80588e4e2f84190, type: 3}
-  - {fileID: 8300000, guid: 1dc18cf0ebc91ef4ea34f6401734b2c8, type: 3}
-  - {fileID: 8300000, guid: ca42b398fb111db4f8681b1cbd0ceab6, type: 3}
+  - {fileID: 8300000, guid: 5bdd879c32661ce42adff81cfb8d1d1f, type: 3}
+  - {fileID: 8300000, guid: b1114cb79f2009648abf347add245473, type: 3}
+  - {fileID: 8300000, guid: 936080f37871e404598eb4e436d0761e, type: 3}
+  - {fileID: 8300000, guid: c9b9bb22554136149a4193326fbddc3f, type: 3}
+  - {fileID: 8300000, guid: 3de55c3342d2a954181dc431270f9e5a, type: 3}
+  - {fileID: 8300000, guid: c35755125595e3548ad2d34b3d03b975, type: 3}
+  - {fileID: 8300000, guid: 7f59d02334116694b913d82e0c91eee2, type: 3}
+  - {fileID: 8300000, guid: 4214630df5e9bfe4dbdffc28895752e0, type: 3}
+  - {fileID: 8300000, guid: 0c6a7c4364a2dd742aa9b80e384d0442, type: 3}
+  - {fileID: 8300000, guid: 025d380e71aca5a43849661a52f7ea22, type: 3}
+  - {fileID: 8300000, guid: 5c994d0457357f34cb54d6e168d94b85, type: 3}
+  - {fileID: 8300000, guid: 43f9bbd9a1437944d9256781a5975e68, type: 3}
+  - {fileID: 8300000, guid: 1cb4320884832f7409d850c30c88378e, type: 3}
 --- !u!114 &6411407553922101897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -293,3 +291,4 @@ MonoBehaviour:
   Collided:
     m_PersistentCalls:
       m_Calls: []
+  collisionWindow: 15

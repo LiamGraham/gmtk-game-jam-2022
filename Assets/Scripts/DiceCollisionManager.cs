@@ -11,6 +11,8 @@ public class DiceCollisionManager : MonoBehaviour
     private static DiceCollisionManager _instance;
     public static DiceCollisionManager Instance { get { return _instance; } }
     // Start is called before the first frame update
+    private int stepCount = 0;
+    public int collisionWindow = 15;
     void Awake()
     {
         if (_instance == null) {
@@ -22,13 +24,22 @@ public class DiceCollisionManager : MonoBehaviour
 
 
     void Update() {
-        if (didCollide) {
-            DiceSoundController.Instance.Trigger();
+        if (!didCollide) {
+            return;
+        }
+
+        if (stepCount == collisionWindow) { 
             didCollide = false;
+            stepCount = 0;
+        } else {
+            stepCount++;
         }
     }
 
     void OnCollision() {
-        didCollide = true;
+        if (!didCollide) {
+            DiceSoundController.Instance.Trigger();
+            didCollide = true;
+        }
     }
 }
