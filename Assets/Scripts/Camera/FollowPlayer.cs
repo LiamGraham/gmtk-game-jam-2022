@@ -75,5 +75,4 @@ public class FollowPlayer : MonoBehaviour
     public void SetFollowCamera() {
         cameraState = CameraState.Follow;
     }
-
 }
