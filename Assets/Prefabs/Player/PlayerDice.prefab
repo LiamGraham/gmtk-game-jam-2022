@@ -151,9 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b43d774c6a083e4eb3773ec58b74675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_ImpluseForce: 200
-  m_ImplusePosition: 0.05
-  diceVertexPrefab: {fileID: 5104769325716049150, guid: c9ca2bf11639c584d8871620632e520c, type: 3}
+  ImpluseForce: 5
+  ImplusePosition: 0.05
+  DiceVertexPrefab: {fileID: 0}
+  OnPlayerStationary:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!82 &4358507390307929167
 AudioSource:
   m_ObjectHideFlags: 0
@@ -166,7 +169,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.655
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

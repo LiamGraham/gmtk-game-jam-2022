@@ -8,7 +8,7 @@ public class DiceCollisionSensor : MonoBehaviour
 
     void Start() {
         vertexCollider = GetComponent<BoxCollider>();
-        ShowCollider(); 
+        // ShowCollider(); 
     }
 
 
@@ -22,6 +22,6 @@ public class DiceCollisionSensor : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         // Debug.Log("Collision detected");
-        DiceCollisionManager.Instance.Collided.Invoke();
+        DiceCollisionManager.Collided?.Invoke();
     }
 }
