@@ -10,10 +10,19 @@ public class FollowPlayer : MonoBehaviour
     public float MinDistance = 3f;
     public float InterpolationSpeed = 2f;
     public bool EnableSmooth = true;
+    public float lookSense = 1f;
+    CameraState cameraState = CameraState.Follow;
 
     void LateUpdate()
     {
-        PositionFollowCamera();
+        if (cameraState == CameraState.Follow) {
+            PositionFollowCamera();
+            return;
+        }
+
+        if (cameraState == CameraState.Free) {
+            PositionFreeCamera();
+        }
     }
 
     private void PositionFollowCamera()
@@ -33,6 +42,19 @@ public class FollowPlayer : MonoBehaviour
         // Here we use linear interpolation for smooth camera movement
         transform.position = EnableSmooth ? Vector3.Lerp(transform.position, goalPosition, interpolationRatio) : goalPosition;
         transform.rotation = EnableSmooth ? Quaternion.Lerp(transform.rotation, goalRotation, interpolationRatio) : goalRotation;
+    }
+
+    private void PositionFreeCamera() {
+        var rotateHorizontal = Input.GetAxis("Mouse X");
+        transform.RotateAround(Player.transform.position, Vector3.up, rotateHorizontal);
+    }
+
+    public void SetFreeCamera() {
+        cameraState = CameraState.Free;
+    }
+
+    public void SetFollowCamera() {
+        cameraState = CameraState.Follow;
     }
 
 }

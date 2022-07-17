@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     //reference to playerDice INSTANCE
     public PlayerDice playerDice;
     //reference to playerCamera INSTANCE
-    public GameObject playerCamera;
+    public FollowPlayer playerCamera;
     //max angle the arrow can point up
     public float maxYTrajectory = 50f;
     public float aimBoxWidth = 0.4f;
@@ -82,12 +82,15 @@ public class PlayerController : MonoBehaviour
     private void AimPlayer()
     {
         //do aiming stuff
-        if (!Input.GetButton("Fire2"))
+        if (Input.GetButton("Fire2"))
         {
             //right mouse pressed, rotating changes camera
             DestroyShotIndicator();
+            playerCamera.SetFreeCamera();
             return;
         }
+
+        playerCamera.SetFollowCamera();
 
         //right mouse not pressed, rotating changes arrow position
         if (shotIndicator == null)

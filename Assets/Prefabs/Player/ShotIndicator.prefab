@@ -101,4 +101,5 @@ MonoBehaviour:
   maxLength: 2
   minAlpha: 0.3
   maxAlpha: 0.8
+  initialScale: 0.1
   player: {fileID: 0}
