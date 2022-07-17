@@ -41,7 +41,7 @@ public class UiNames : MonoBehaviour
     void onDiceResult(int result)
     {
         animator.SetInteger("result", result);
-        material.SetFloat("_lastOnTime", Time.time);
+        material.SetFloat("_lastOnTime", Time.timeSinceLevelLoad);
         Debug.Log("NOW");
     }
 

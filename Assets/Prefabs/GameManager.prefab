@@ -45,8 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 0}
+  playerController: {fileID: 0}
   levelPrefabs:
-  - {fileID: 5609640906237385088, guid: c572c89b04403f1498f7e0a32365179c, type: 3}
-  - {fileID: 5609640906237385088, guid: 6b8556e45b3a97e4ab03ce006654dd45, type: 3}
   - {fileID: 5609640906237385088, guid: 8ccc73c13c31c184fa4286825029abbe, type: 3}
+  - {fileID: 5609640906237385088, guid: 2c8a880f9465cc746ae6bfd82128900e, type: 3}
+  - {fileID: 5609640906237385088, guid: c572c89b04403f1498f7e0a32365179c, type: 3}
   levelIndex: 0
