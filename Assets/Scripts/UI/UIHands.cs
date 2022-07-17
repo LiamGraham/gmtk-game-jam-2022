@@ -9,11 +9,16 @@ public class UIHands : MonoBehaviour
     PlayerDice playerDice;
     Animator animator;
 
+    public AudioClip cyclingSound;
+    public AudioClip completeSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         playerDice = PlayerDice.Instance;
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         LevelEventManager.PlayerShot?.AddListener(onDiceHit);
         playerDice.OnPlayerStationary?.AddListener(onDiceResult);
     }
@@ -32,9 +37,14 @@ public class UIHands : MonoBehaviour
 
     void onDiceHit() {
         animator.SetInteger("result", 0);
+        audioSource.clip = cyclingSound;
+        audioSource.Play();
     }
 
     void onDiceResult(int result) {
         animator.SetInteger("result", result);
+        audioSource.Stop();
+        audioSource.clip = completeSound;
+        audioSource.Play();
     }
 }
