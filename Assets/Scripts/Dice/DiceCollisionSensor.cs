@@ -21,6 +21,8 @@ public class DiceCollisionSensor : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        DiceCollisionManager.Instance.OnCollision();
+        if (!other.isTrigger) {
+            DiceCollisionManager.Instance.OnCollision();
+        }
     }
 }

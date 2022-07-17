@@ -2,14 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * Manager for non-spatial audio.
- */
-public class GlobalSoundManager : MonoBehaviour
+public class AmbienceManager : MonoBehaviour
 {
-    public AudioClip deathSound;
-    public AudioClip mainGoalSound;
-
     // Start is called before the first frame update
     void Start()
     {

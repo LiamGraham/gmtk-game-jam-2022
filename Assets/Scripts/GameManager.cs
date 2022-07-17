@@ -38,6 +38,8 @@ public partial class GameManager : MonoBehaviour, IDisposable
             Destroy(currentLevel);
         }
 
+        Debug.Log("Level Started");
+        LevelEventManager.LevelStarted?.Invoke();
         playerController.State = PlayerState.Inactive;
 
         // Instantiate the new level

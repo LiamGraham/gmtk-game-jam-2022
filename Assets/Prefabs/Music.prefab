@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &337859349456564862
+--- !u!1 &2225809719842149193
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,23 +8,23 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6888351634457367829}
-  - component: {fileID: -4194529187774163994}
-  - component: {fileID: 6469727035905721615}
+  - component: {fileID: 4623857885955375293}
+  - component: {fileID: 8761236495772826098}
+  - component: {fileID: 118514021966742105}
   m_Layer: 0
-  m_Name: GlobalSound
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6888351634457367829
+--- !u!4 &4623857885955375293
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337859349456564862}
+  m_GameObject: {fileID: 2225809719842149193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,28 +33,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-4194529187774163994
+--- !u!114 &8761236495772826098
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337859349456564862}
+  m_GameObject: {fileID: 2225809719842149193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92f16ca9020c8cb46b001e6bd93261c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f6b319893720d047a9cb3d95b1900ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambienceSound: {fileID: 0}
-  deathSound: {fileID: 8300000, guid: f363c1a096e150e4dbba452330e77451, type: 3}
-  mainGoalSound: {fileID: 8300000, guid: 03fe0cd0ed182564bad77c429d9649fd, type: 3}
---- !u!82 &6469727035905721615
+  levelMusic: {fileID: 8300000, guid: c343fb76eee54084abbf42f1fa2f983b, type: 3}
+  menuMusic: {fileID: 0}
+  volume: 0.33
+--- !u!82 &118514021966742105
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337859349456564862}
+  m_GameObject: {fileID: 2225809719842149193}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -62,7 +62,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
