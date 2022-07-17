@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPlayerStationary(int result)
     {
+        Debug.Log(result.ToString());
         // If we're flying and now stationary, chage state to aiming
         if (State == PlayerState.Flying)
         {
@@ -135,9 +136,6 @@ public class PlayerController : MonoBehaviour
         var yPos = Mathf.Max((0.5f - aimBoxHeight) * Screen.height, mousePosition.y);
         yPos = Mathf.Min((0.5f + aimBoxHeight) * Screen.height, yPos);
         var xRotation = ((yPos - ((0.5f - aimBoxHeight) * Screen.height)) / (aimBoxHeight * 2 * Screen.height)) * maxYTrajectory;
-
-        Debug.Log(yRotation.ToString());
-        Debug.Log(xRotation.ToString());
 
         //calculate rotation
         return direction = Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(-xRotation, 0, 0) * Quaternion.Euler(0, -yRotation, 0) * Vector3.forward;

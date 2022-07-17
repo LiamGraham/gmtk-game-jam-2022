@@ -33,7 +33,7 @@ public class DiceSoundController : MonoBehaviour
     }
 
     public void Trigger() {
-        Debug.Log("Trigger Dice Sound");
+        // Debug.Log("Trigger Dice Sound");
         AudioClip clip = GetClip();
         if (clip != null) {
             audioSource.PlayOneShot(clip);
