@@ -21,7 +21,8 @@ public class UIHands : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         LevelEventManager.PlayerShot?.AddListener(onDiceHit);
-        LevelEventManager.PlayerDied?.AddListener(OnPlayerDeath);
+        LevelEventManager.PlayerDied?.AddListener(() => StopAudio(true));
+        LevelEventManager.LevelEnded?.AddListener(() => StopAudio(false));
         playerDice.OnPlayerStationary?.AddListener(onDiceResult);
     }
 
@@ -62,8 +63,8 @@ public class UIHands : MonoBehaviour
         }
     }
 
-    void OnPlayerDeath() {
+    void StopAudio(bool silence) {
         audioSource.Stop();
-        silenced = true;
+        silenced = silence;
     }
 }
