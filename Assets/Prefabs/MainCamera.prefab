@@ -104,7 +104,9 @@ MonoBehaviour:
   MinDistance: 1.5
   InterpolationSpeed: 2.5
   EnableSmooth: 1
-  lookSense: 0.05
+  lookSense: 0.005
+  maxZoom: 5
+  minZoom: 0.5
 --- !u!114 &8839784549165916195
 MonoBehaviour:
   m_ObjectHideFlags: 0

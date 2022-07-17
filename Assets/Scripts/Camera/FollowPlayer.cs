@@ -11,16 +11,15 @@ public class FollowPlayer : MonoBehaviour
     public float InterpolationSpeed = 2f;
     public bool EnableSmooth = true;
     public float lookSense = 1f;
+    public float maxZoom = 5f;
+    public float minZoom = 0.5f;
     CameraState cameraState = CameraState.Follow;
 
     void LateUpdate()
     {
         if (cameraState == CameraState.Follow) {
             PositionFollowCamera();
-            return;
-        }
-
-        if (cameraState == CameraState.Free) {
+        } else if (cameraState == CameraState.Free) {
             PositionFreeCamera();
         }
     }
@@ -45,8 +44,23 @@ public class FollowPlayer : MonoBehaviour
     }
 
     private void PositionFreeCamera() {
+        var distanceToTarget = (Player.transform.position - transform.position).magnitude;
+        //rotate around y axis axis
         var rotateHorizontal = Input.GetAxis("Mouse X");
         transform.RotateAround(Player.transform.position, Vector3.up, rotateHorizontal);
+        //rotate around x axis
+        var rotateVertical = Input.GetAxis("Mouse Y");
+        transform.RotateAround(Player.transform.position, Vector3.left, rotateVertical);
+        //handle zoom
+        var scroll = Input.GetAxis("Mouse ScrollWheel");
+        distanceToTarget = Mathf.Clamp(distanceToTarget * (1 - scroll), minZoom, maxZoom);
+        //do zoom
+        this.transform.position = Player.transform.position;
+
+        transform.Rotate(Vector3.left, rotateVertical);
+        transform.Rotate(Vector3.up, rotateHorizontal, Space.World);
+        transform.Translate(new Vector3(0,0,-distanceToTarget));
+        transform.LookAt(Player.transform);
     }
 
     public void SetFreeCamera() {
