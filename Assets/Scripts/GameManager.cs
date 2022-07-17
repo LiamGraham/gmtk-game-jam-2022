@@ -7,6 +7,8 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
+    public List<Level> Levels = new() { };
+
     public GameState State { get; private set; }
 
     private void Start()
@@ -18,7 +20,6 @@ public partial class GameManager : MonoBehaviour, IDisposable
     void ObjectiveAchieved()
     {
         State = GameState.ObjectiveAchieved;
-        Debug.Log("Goal Reached!");
     }
 
     public void Dispose()
