@@ -61,7 +61,9 @@ public partial class GameManager : MonoBehaviour, IDisposable
         // Play level start zoom animation
         if (playerCamera != null)
         {
-            playerCamera.transform.SetPositionAndRotation(startPosition.Position + Vector3.up * 10, Quaternion.LookRotation(Vector3.down));
+            playerCamera.transform.position = startPosition.Position + Vector3.up * 10;
+            playerCamera.transform.rotation = Quaternion.LookRotation(Vector3.down);
+            // playerCamera.transform.SetPositionAndRotation(startPosition.Position + Vector3.up * 10, Quaternion.LookRotation(Vector3.down));
             var camera = playerCamera.GetComponent<FollowPlayer>();
             var cameraZoom = playerCamera.GetComponent<ZoomCameraIn>();
 

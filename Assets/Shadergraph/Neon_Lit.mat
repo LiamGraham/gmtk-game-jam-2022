@@ -91,7 +91,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     - _decay: 0
-    - _decayRate: 2
+    - _decayRate: 1.2
     - _intensity: 0.2
     - _lastOnTime: 0
     m_Colors:
