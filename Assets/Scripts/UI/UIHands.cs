@@ -12,6 +12,7 @@ public class UIHands : MonoBehaviour
     public AudioClip cyclingSound;
     public AudioClip completeSound;
     private AudioSource audioSource;
+    private bool silenced = false;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class UIHands : MonoBehaviour
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         LevelEventManager.PlayerShot?.AddListener(onDiceHit);
+        LevelEventManager.PlayerDied?.AddListener(OnPlayerDeath);
         playerDice.OnPlayerStationary?.AddListener(onDiceResult);
     }
 
@@ -37,14 +39,31 @@ public class UIHands : MonoBehaviour
 
     void onDiceHit() {
         animator.SetInteger("result", 0);
-        audioSource.clip = cyclingSound;
-        audioSource.Play();
+        silenced = false;
+        PlayCycle();
     }
 
     void onDiceResult(int result) {
         animator.SetInteger("result", result);
-        audioSource.Stop();
-        audioSource.clip = completeSound;
+        PlayComplete();
+    }
+
+    void PlayCycle() {
+        audioSource.clip = cyclingSound;
         audioSource.Play();
+    }
+
+    void PlayComplete() {
+        audioSource.Stop();
+
+        if (!silenced) {
+            audioSource.clip = completeSound;
+            audioSource.Play();
+        }
+    }
+
+    void OnPlayerDeath() {
+        audioSource.Stop();
+        silenced = true;
     }
 }
