@@ -69,16 +69,18 @@ public class PlayerController : MonoBehaviour
     //referance to shotIndicator INSTANCE
     ShotIndicator shotIndicator;
 
+    void Awake() {
+        if (_instance == null) {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
         // Add event listeners
         playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
         LevelEventManager.PlayerDied?.AddListener(OnPlayerDied);
-
-        if (_instance == null)
-        {
-            _instance = this;
-        }
+        // DiceCollisionManager.Collided?.AddListener(OnDiceCollision);
     }
 
     public void SetPlayerPosition(Vector3 position, Quaternion rotation)
