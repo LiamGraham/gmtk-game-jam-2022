@@ -7,26 +7,90 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
+    public GameObject playerCamera;
     public List<GameObject> levelPrefabs = new() { };
+    public int levelIndex = 0;
 
-    public GameState State { get; private set; }
+    private GameObject currentLevel;
+
+    public GameState State { get; private set; } = GameState.Starting;
 
     private void Start()
     {
         State = GameState.Starting;
-        LevelEventManager.GoalAchieved?.AddListener(ObjectiveAchieved);
+        LevelEventManager.GoalAchieved?.AddListener(GoalAchieved);
+        StartLevel();
     }
 
-    void ObjectiveAchieved(GoalType goalType, int score)
+    private void StartLevel()
+    {
+        StartLevel(levelPrefabs[levelIndex % levelPrefabs.Count]);
+    }
+
+    private void StartLevel(GameObject levelPrefab)
+    {
+        // Destroy the current level if it exists
+        if (currentLevel != null)
+        {
+            Destroy(currentLevel);
+        }
+
+        // Instantiate the new level
+        currentLevel = Instantiate(levelPrefab, Vector3.zero, Quaternion.identity);
+
+        var playerDice = PlayerDice.Instance;
+        var startPosition = currentLevel.GetComponentInChildren<StartPosition>();
+        if (startPosition != null)
+        {
+            playerDice.ResetToPosition(startPosition.Position, startPosition.Rotation);
+        }
+        else
+        {
+            Debug.LogWarning($"{nameof(StartPosition)} not found on level. Please add a GameObject with a StartPosition provided");
+        }
+
+        // TODO Stretch goal: Play overview / flyby animation?
+
+        // Play level start zoom animation
+        if (playerCamera != null)
+        {
+            playerCamera.transform.SetPositionAndRotation(startPosition.Position + Vector3.up * 10, Quaternion.LookRotation(Vector3.down));
+            var camera = playerCamera.GetComponent<FollowPlayer>();
+            var cameraZoom = playerCamera.GetComponent<ZoomCameraIn>();
+
+            if (cameraZoom != null && camera != null)
+            {
+                cameraZoom.RunZoom();
+                cameraZoom.OnZoomFinished?.AddListener(OnZoomFinished);
+            }
+        }
+    }
+
+    private void OnZoomFinished()
+    {
+        var cameraZoom = playerCamera.GetComponent<ZoomCameraIn>();
+        cameraZoom.OnZoomFinished?.RemoveListener(OnZoomFinished);
+
+        State = GameState.Playing;
+
+        // TODO: Start player controls
+    }
+
+    void GoalAchieved(GoalType goalType, int score)
     {
         if (goalType == GoalType.Main)
         {
-            State = GameState.ObjectiveAchieved;
+            State = GameState.LevelOver;
+
+            // TODO: show level end UI
+
+            levelIndex++;
+            StartLevel();
         }
     }
 
     public void Dispose()
     {
-        LevelEventManager.GoalAchieved?.RemoveListener(ObjectiveAchieved);
+        LevelEventManager.GoalAchieved?.RemoveListener(GoalAchieved);
     }
 }

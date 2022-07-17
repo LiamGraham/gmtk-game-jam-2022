@@ -19,5 +19,5 @@ public enum GameState
     /// <summary>
     /// When the main objective of the map has been reached!
     /// </summary>
-    ObjectiveAchieved
+    LevelOver
 }
