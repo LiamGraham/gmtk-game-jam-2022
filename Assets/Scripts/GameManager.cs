@@ -8,6 +8,8 @@ using UnityEngine;
 public partial class GameManager : MonoBehaviour, IDisposable
 {
     public GameObject playerCamera;
+    public PlayerController playerController;
+
     public List<GameObject> levelPrefabs = new() { };
     public int levelIndex = 0;
 
@@ -17,7 +19,6 @@ public partial class GameManager : MonoBehaviour, IDisposable
 
     private void Start()
     {
-        State = GameState.Starting;
         LevelEventManager.GoalAchieved?.AddListener(GoalAchieved);
         StartLevel();
     }
@@ -29,16 +30,19 @@ public partial class GameManager : MonoBehaviour, IDisposable
 
     private void StartLevel(GameObject levelPrefab)
     {
+        State = GameState.Starting;
+
         // Destroy the current level if it exists
         if (currentLevel != null)
         {
             Destroy(currentLevel);
         }
 
+        playerController.State = PlayerState.Inactive;
+
         // Instantiate the new level
         currentLevel = Instantiate(levelPrefab, Vector3.zero, Quaternion.identity);
 
-        var playerDice = PlayerDice.Instance;
         var startPosition = currentLevel.GetComponentInChildren<StartPosition>();
 
         if (startPosition == null)
@@ -47,7 +51,7 @@ public partial class GameManager : MonoBehaviour, IDisposable
             return;
         }
 
-        playerDice.ResetToPosition(startPosition.Position, startPosition.Rotation);
+        playerController.SetPlayerPosition(startPosition.Position, startPosition.Rotation);
 
         // TODO Stretch goal: Play overview / flyby animation?
 
@@ -72,8 +76,7 @@ public partial class GameManager : MonoBehaviour, IDisposable
         cameraZoom.OnZoomFinished?.RemoveListener(OnZoomFinished);
 
         State = GameState.Playing;
-
-        // TODO: Start player controls
+        playerController.State = PlayerState.Aiming;
     }
 
     void GoalAchieved(GoalType goalType, int score)

@@ -47,14 +47,14 @@ public class PlayerController : MonoBehaviour
     //singleton
     private static PlayerController _instance;
     public static PlayerController Instance { get { return _instance; } }
-    
+
     public float maxCurveMagnitude = 0.1f;
     public float velocityCurveThreshold = 0.1f;
 
     /// <summary>
     /// The current state of the player controller
     /// </summary>
-    public PlayerState State { get; private set; }
+    public PlayerState State { get; set; } = PlayerState.Inactive;
 
     /// <summary>
     /// The location of the player from the last time it was fired
@@ -71,38 +71,45 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        State = PlayerState.Aiming;
-
-        SetPreviousPlayerPosition();
-
         // Add event listeners
         playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
         LevelEventManager.PlayerDied?.AddListener(OnPlayerDied);
 
-        if (_instance == null) {
+        if (_instance == null)
+        {
             _instance = this;
         }
     }
 
+    public void SetPlayerPosition(Vector3 position, Quaternion rotation)
+    {
+        PreviousPlayerPosition = position;
+        PreviousPlayerRotation = rotation;
+        playerDice.SetPosition(PreviousPlayerPosition, PreviousPlayerRotation);
+    }
+
     private void OnPlayerDied()
     {
-        State = PlayerState.Aiming;
+        State = PlayerState.Dead;
 
         // Return to previous location
-        playerDice.ResetToPosition(PreviousPlayerPosition, PreviousPlayerRotation);
+        playerDice.SetPosition(PreviousPlayerPosition, PreviousPlayerRotation);
     }
 
     //Update is called once per frame
     void Update()
     {
-        if (State == PlayerState.Inactive)
+        if (State == PlayerState.Inactive || State == PlayerState.Dead)
         {
             //do nothing
+            DestroyShotIndicator();
+            playerCamera.SetFollowCamera();
         }
         else if (State == PlayerState.Aiming)
         {
             AimPlayer();
-        } else if (State == PlayerState.InitialFlight)
+        }
+        else if (State == PlayerState.InitialFlight)
         {
             //check initial flight
             InitialFlight();
@@ -114,7 +121,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(result.ToString());
         previousRoll = result;
         // If we're flying and now stationary, chage state to aiming
-        if (State == PlayerState.Flying || State == PlayerState.InitialFlight)
+        if (State == PlayerState.Flying || State == PlayerState.InitialFlight || State == PlayerState.Dead)
         {
             State = PlayerState.Aiming;
 
@@ -226,10 +233,10 @@ public class PlayerController : MonoBehaviour
         }
         // playerVel = (new Vector3(playerVel.x, 0, playerVel.y)).normalized;
         var rotation = Quaternion.LookRotation(playerVel.normalized, Vector3.up);
-        var curveDirection = rotation * CurveDirs[previousRoll-1];
+        var curveDirection = rotation * CurveDirs[previousRoll - 1];
 
         //get curve magnitude
-        var torquePercentage = playerDice.AngularVelocity.magnitude / maxTorque;   
+        var torquePercentage = playerDice.AngularVelocity.magnitude / maxTorque;
         var curveMagnitude = torquePercentage * maxCurveMagnitude;
 
         //apply curve to dice
@@ -238,7 +245,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnDiceCollision()
     {
-        if (State == PlayerState.InitialFlight) {
+        if (State == PlayerState.InitialFlight)
+        {
             State = PlayerState.Flying;
         }
     }
