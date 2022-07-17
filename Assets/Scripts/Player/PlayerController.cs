@@ -22,7 +22,17 @@ public class PlayerController : MonoBehaviour
     public float maxPowerSetting = 1f;
     public float powerSensitivity = 0.1f;
     float currentPowerSetting = 0.5f;
+    //rotation settings
     int previousRoll = 1;
+
+    List<Vector3> TorqueDirs = new List<Vector3> {
+        Vector3.right,
+        Vector3.left,
+        (Vector3.right + Vector3.forward).normalized,
+        (Vector3.right + Vector3.back).normalized,
+        Vector3.forward,
+        Vector3.back,
+    };
 
     /// <summary>
     /// The current state of the player controller
@@ -71,6 +81,10 @@ public class PlayerController : MonoBehaviour
         else if (State == PlayerState.Aiming)
         {
             AimPlayer();
+        } else if (State == PlayerState.InitialFlight)
+        {
+            //check initial flight
+            InitialFlight();
         }
     }
 
@@ -79,7 +93,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log(result.ToString());
         previousRoll = result;
         // If we're flying and now stationary, chage state to aiming
-        if (State == PlayerState.Flying)
+        if (State == PlayerState.Flying || State == PlayerState.InitialFlight)
         {
             State = PlayerState.Aiming;
 
@@ -119,11 +133,20 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             //FIRE
-            State = PlayerState.Flying;
+            State = PlayerState.InitialFlight;
             LevelEventManager.PlayerShot?.Invoke();
             DestroyShotIndicator();
             CreateDiceImpulse();
         }
+    }
+
+    private void InitialFlight()
+    {
+        //check if there has been a collision
+
+        //calculate calculate xz velocity
+
+        //
     }
 
     private void DestroyShotIndicator()
@@ -161,7 +184,9 @@ public class PlayerController : MonoBehaviour
 
     private float GetTorqueMagnitude()
     {
-        return (((float)previousRoll)/6f) * maxTorque;
+        //deciding whether dice rolls should effect magnitude
+        // return (((float)previousRoll)/6f) * maxTorque;
+        return maxTorque;
     }
 
     private void CreateDiceImpulse()
@@ -170,16 +195,8 @@ public class PlayerController : MonoBehaviour
         var flatDirection = (new Vector3(direction.x, 0, direction.z)).normalized;
         var rotation = Quaternion.LookRotation(flatDirection, Vector3.up);
 
-        //get impulse amount
-        var randDir = new List<Vector3> {
-            rotation * Vector3.right,
-            rotation * Vector3.left,
-            rotation * Vector3.forward,
-            rotation * Vector3.back,
-        };
-
         playerDice.AddForce(GetDirection() * GetImpulseMagnitude());
-        playerDice.AddTorque(randDir[Random.Range(0, 4)] * GetTorqueMagnitude());
+        playerDice.AddTorque((rotation * TorqueDirs[previousRoll - 1]) * GetTorqueMagnitude());
     }
 
     private void SetPreviousPlayerPosition()

@@ -2,5 +2,6 @@
 {
     Inactive,
     Aiming,
+    InitialFlight,
     Flying
 }
