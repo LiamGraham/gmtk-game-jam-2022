@@ -39,7 +39,7 @@ public class PlayerDice : MonoBehaviour
         }
 
         CreateVertexSensors();
-
+        SetTrailState(false, false);
         OnPlayerStationary = new();
     }
 
@@ -57,11 +57,13 @@ public class PlayerDice : MonoBehaviour
         if (!inMovement && !IsStationary())
         {
             inMovement = true;
+            SetTrailState(true, true);
         }
         else if (inMovement && IsStationary())
         {
             OnPlayerStationary.Invoke(calculateRollResult());
             inMovement = false;
+            SetTrailState(true, false);
         }
     }
 
@@ -138,5 +140,11 @@ public class PlayerDice : MonoBehaviour
         }
 
         return max_no;
+    }
+
+    void SetTrailState(bool enabled, bool emitting) {
+        TrailRenderer trail = GetComponent<TrailRenderer>();
+        trail.emitting = emitting;
+        trail.enabled = enabled;
     }
 }
