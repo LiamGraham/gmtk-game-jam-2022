@@ -2,6 +2,6 @@
 
 public class Level : MonoBehaviour
 {
-    public GameObject prefab;
+    public int score = 0;
 
 }

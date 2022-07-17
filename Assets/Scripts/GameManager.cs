@@ -7,7 +7,7 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
-    public List<Level> Levels = new() { };
+    public List<GameObject> levelPrefabs = new() { };
 
     public GameState State { get; private set; }
 
