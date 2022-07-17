@@ -100,6 +100,7 @@ public class UIHands : MonoBehaviour
         Debug.Log("Max Measured Loudness: ");
         Debug.Log(maxMeasuredLoudness.ToString());
         material.SetFloat("_intensity",intensity);
+        namesObject.setAmplitude(intensity);
     }
 
     void onDiceHit() {

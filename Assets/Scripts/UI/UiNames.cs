@@ -8,10 +8,12 @@ public class UiNames : MonoBehaviour
     public GameObject playerCamera;
     PlayerDice playerDice;
     Animator animator;
+    private Material material;
 
     // Start is called before the first frame update
     void Start()
     {
+        material = GetComponent<SpriteRenderer>().material;
         playerDice = PlayerDice.Instance;
         animator = GetComponent<Animator>();
         LevelEventManager.PlayerShot?.AddListener(onDiceHit);
@@ -21,6 +23,7 @@ public class UiNames : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        material.SetFloat("_decay",1f);
         //update position to player position
         transform.position = playerDice.WorldCenterOfMass + hoverOffset;
         
@@ -38,5 +41,11 @@ public class UiNames : MonoBehaviour
     void onDiceResult(int result)
     {
         animator.SetInteger("result", result);
+        material.SetFloat("_lastOnTime", Time.time);
+    }
+
+    public void setAmplitude(float amplitude)
+    {
+        material.SetFloat("_intensity",amplitude);
     }
 }
