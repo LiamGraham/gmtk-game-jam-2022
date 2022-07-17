@@ -15,6 +15,10 @@ public class PlayerDice : MonoBehaviour
 
     public Vector3 WorldCenterOfMass => rigidbody.worldCenterOfMass;
 
+    public Vector3 Velocity => rigidbody.velocity;
+
+    public Vector3 AngularVelocity => rigidbody.angularVelocity;
+
     /// <summary>
     /// Triggered once the player dice has stopped moving, i.e. Velocity is 0 and angular momentum is 0.
     /// </summary>
@@ -82,12 +86,17 @@ public class PlayerDice : MonoBehaviour
 
     public void AddForce(Vector3 force)
     {
-        rigidbody.AddForce(force, ForceMode.Impulse);
+        rigidbody.AddForce(force, ForceMode.VelocityChange);
     }
 
     public void AddTorque(Vector3 torque)
     {
         rigidbody.AddTorque(torque, ForceMode.VelocityChange);
+    }
+
+    public void AddConstantForce(Vector3 force)
+    {
+        rigidbody.AddForce(force, ForceMode.Force);
     }
 
     void CreateVertexSensors()

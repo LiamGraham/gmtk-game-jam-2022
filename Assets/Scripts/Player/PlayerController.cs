@@ -34,6 +34,23 @@ public class PlayerController : MonoBehaviour
         Vector3.back,
     };
 
+    //curve settings
+    List<Vector3> CurveDirs = new List<Vector3> {
+        Vector3.down,
+        Vector3.up,
+        (Vector3.down + Vector3.left).normalized,
+        (Vector3.down + Vector3.right).normalized,
+        Vector3.left,
+        Vector3.right,
+    };
+
+    //singleton
+    private static PlayerController _instance;
+    public static PlayerController Instance { get { return _instance; } }
+    
+    public float maxCurveMagnitude = 0.1f;
+    public float velocityCurveThreshold = 0.1f;
+
     /// <summary>
     /// The current state of the player controller
     /// </summary>
@@ -61,6 +78,10 @@ public class PlayerController : MonoBehaviour
         // Add event listeners
         playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
         LevelEventManager.PlayerDied?.AddListener(OnPlayerDied);
+
+        if (_instance == null) {
+            _instance = this;
+        }
     }
 
     private void OnPlayerDied()
@@ -142,11 +163,7 @@ public class PlayerController : MonoBehaviour
 
     private void InitialFlight()
     {
-        //check if there has been a collision
-
-        //calculate calculate xz velocity
-
-        //
+        CurveDice();
     }
 
     private void DestroyShotIndicator()
@@ -197,6 +214,33 @@ public class PlayerController : MonoBehaviour
 
         playerDice.AddForce(GetDirection() * GetImpulseMagnitude());
         playerDice.AddTorque((rotation * TorqueDirs[previousRoll - 1]) * GetTorqueMagnitude());
+    }
+
+    private void CurveDice()
+    {
+        //get curve direction
+        var playerVel = playerDice.Velocity;
+        if (playerVel.magnitude <= velocityCurveThreshold)
+        {
+            return;
+        }
+        // playerVel = (new Vector3(playerVel.x, 0, playerVel.y)).normalized;
+        var rotation = Quaternion.LookRotation(playerVel.normalized, Vector3.up);
+        var curveDirection = rotation * CurveDirs[previousRoll-1];
+
+        //get curve magnitude
+        var torquePercentage = playerDice.AngularVelocity.magnitude / maxTorque;   
+        var curveMagnitude = torquePercentage * maxCurveMagnitude;
+
+        //apply curve to dice
+        playerDice.AddConstantForce(curveDirection * curveMagnitude);
+    }
+
+    public void OnDiceCollision()
+    {
+        if (State == PlayerState.InitialFlight) {
+            State = PlayerState.Flying;
+        }
     }
 
     private void SetPreviousPlayerPosition()

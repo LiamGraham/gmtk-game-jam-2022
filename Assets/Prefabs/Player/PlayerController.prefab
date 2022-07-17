@@ -55,3 +55,5 @@ MonoBehaviour:
   maxTorque: 25
   maxPowerSetting: 1
   powerSensitivity: 1
+  maxCurveMagnitude: 0.1
+  velocityCurveThreshold: 0.1

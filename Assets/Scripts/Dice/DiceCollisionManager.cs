@@ -37,6 +37,7 @@ public class DiceCollisionManager : MonoBehaviour
     void OnCollision() {
         if (!didCollide) {
             DiceSoundController.Instance.Trigger();
+            PlayerController.Instance.OnDiceCollision();
             didCollide = true;
         }
     }
