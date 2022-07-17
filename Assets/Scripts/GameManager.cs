@@ -7,6 +7,8 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
+    public List<GameObject> levelPrefabs = new() { };
+
     public GameState State { get; private set; }
 
     private void Start()
@@ -15,10 +17,12 @@ public partial class GameManager : MonoBehaviour, IDisposable
         LevelEventManager.ObjectiveAchieved?.AddListener(ObjectiveAchieved);
     }
 
-    void ObjectiveAchieved()
+    void ObjectiveAchieved(GoalType goalType, int score)
     {
-        State = GameState.ObjectiveAchieved;
-        Debug.Log("Goal Reached!");
+        if (goalType == GoalType.Main)
+        {
+            State = GameState.ObjectiveAchieved;
+        }
     }
 
     public void Dispose()

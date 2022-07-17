@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 public class GoalCollider : MonoBehaviour
 {
+    public GoalType type = GoalType.Main;
+    public int score = 10;
+
     private bool goalReached = false;
 
     private void Start()
@@ -25,7 +28,7 @@ public class GoalCollider : MonoBehaviour
         if (!goalReached && playerDiceComponent.IsStationary())
         {
             goalReached = true;
-            LevelEventManager.ObjectiveAchieved?.Invoke();
+            LevelEventManager.ObjectiveAchieved?.Invoke(type, score);
         }
     }
 }
