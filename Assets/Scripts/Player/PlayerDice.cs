@@ -13,6 +13,8 @@ public class PlayerDice : MonoBehaviour
     private static PlayerDice _instance;
     public static PlayerDice Instance { get { return _instance; } }
 
+    public static UnityEvent<int> OnDiceResult = new();
+
     public Vector3 WorldCenterOfMass => rigidbody.worldCenterOfMass;
 
     public Vector3 Velocity => rigidbody.velocity;
@@ -143,7 +145,6 @@ public class PlayerDice : MonoBehaviour
                 max_no = i + 1;
             }
         }
-
         return max_no;
     }
 
