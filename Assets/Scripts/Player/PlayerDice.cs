@@ -67,8 +67,10 @@ public class PlayerDice : MonoBehaviour
         }
     }
 
-    public void ResetToPosition(Vector3 position, Quaternion rotation)
+    public void SetPosition(Vector3 position, Quaternion rotation)
     {
+        SetTrailState(false, false);
+
         transform.position = position;
         transform.rotation = rotation;
 
@@ -117,7 +119,8 @@ public class PlayerDice : MonoBehaviour
         }
     }
 
-    int calculateRollResult() {
+    int calculateRollResult()
+    {
         var dirList = new List<Vector3> {
             new Vector3(0,1,0),
             new Vector3(-1,0,0),
@@ -131,9 +134,11 @@ public class PlayerDice : MonoBehaviour
         var max_no = -1;
         var max_product = -1f;
 
-        for (var i=0; i<6; i++) {
+        for (var i = 0; i < 6; i++)
+        {
             var product = Vector3.Dot(Vector3.up, (rotation * dirList[i]));
-            if (product > max_product) {
+            if (product > max_product)
+            {
                 max_product = product;
                 max_no = i + 1;
             }
@@ -142,9 +147,15 @@ public class PlayerDice : MonoBehaviour
         return max_no;
     }
 
-    void SetTrailState(bool enabled, bool emitting) {
+    void SetTrailState(bool enabled, bool emitting)
+    {
         TrailRenderer trail = GetComponent<TrailRenderer>();
         trail.emitting = emitting;
         trail.enabled = enabled;
+
+        if (!enabled)
+        {
+            trail.Clear();
+        }
     }
 }

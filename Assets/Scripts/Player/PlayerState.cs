@@ -3,5 +3,6 @@
     Inactive,
     Aiming,
     InitialFlight,
-    Flying
+    Flying,
+    Dead
 }
