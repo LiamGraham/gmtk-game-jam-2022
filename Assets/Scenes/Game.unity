@@ -355,6 +355,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 553061680}
+    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
+      propertyPath: levelPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 5609640906237385088, guid: 2c8a880f9465cc746ae6bfd82128900e, type: 3}
     - target: {fileID: 2815256302964010552, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
       propertyPath: m_RootOrder
       value: 2
