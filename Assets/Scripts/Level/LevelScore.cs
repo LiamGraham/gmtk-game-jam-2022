@@ -1,6 +1,8 @@
+using System.Collections.Generic;
+
 public class LevelScore {
 
-    private static const Dictionary<int, string> scoreNames = new()
+    private static Dictionary<int, string> scoreNames = new()
     {
         [-3] = "Jackpot",
         [-2] = "Ace In The Hole",
@@ -12,8 +14,8 @@ public class LevelScore {
         [4] = "No Dice",
     };
 
-    private static const int minScore = -3;
-    private static const int maxScore = 4;
+    private const int minScore = -3;
+    private const int maxScore = 4;
     
     public static string Result(int score, int par) {
         int diff = score - par;

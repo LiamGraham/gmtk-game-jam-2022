@@ -45,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
         // Add event listeners
         playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
-        LevelEventManager.Died?.AddListener(OnPlayerDied);
+        LevelEventManager.PlayerDied?.AddListener(OnPlayerDied);
     }
 
     private void OnPlayerDied()
@@ -108,7 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             //FIRE
             State = PlayerState.Flying;
-            LevelEventManager.Shot?.Invoke();
+            LevelEventManager.PlayerShot?.Invoke();
             DestroyShotIndicator();
             CreateDiceImpulse();
         }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 
 public class Level : MonoBehaviour, IDisposable
 {
@@ -9,7 +10,7 @@ public class Level : MonoBehaviour, IDisposable
 
     public void Start() {
         isActive = true;
-        LevelEventManager.Shot?.AddListener(OnShot);
+        LevelEventManager.PlayerShot?.AddListener(OnShot);
     }
 
     private void OnShot() {
@@ -22,6 +23,6 @@ public class Level : MonoBehaviour, IDisposable
 
     public void Dispose()
     {
-        LevelEventManager.Shot?.RemoveListener(OnShot);
+        LevelEventManager.PlayerShot?.RemoveListener(OnShot);
     }
 }

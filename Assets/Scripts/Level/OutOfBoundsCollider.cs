@@ -11,7 +11,7 @@ public class OutOfBoundsCollider : MonoBehaviour
     {
         if (other.IsPlayer())
         {
-            LevelEventManager.Died?.Invoke();
+            LevelEventManager.PlayerDied?.Invoke();
         }
     }
 }
