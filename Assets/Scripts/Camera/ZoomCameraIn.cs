@@ -47,18 +47,18 @@ public class ZoomCameraIn : MonoBehaviour
     {
         if (running)
         {
-            var runtime = Time.time - startTime;
+            //var runtime = Time.time - startTime;
 
-            if (runtime > Duration)
-            {
-                running = false;
-                followPlayer.Offset = EndOffset;
+            //if (runtime > Duration)
+            //{
+            //    running = false;
+            //    followPlayer.Offset = EndOffset;
 
-                // Notify that the zoom has finished playing
-                OnZoomFinished?.Invoke();
-            }
+            //    // Notify that the zoom has finished playing
+            //    OnZoomFinished?.Invoke();
+            //}
 
-            followPlayer.Offset = Vector3.Lerp(StartOffset, EndOffset, runtime / Duration);
+            //followPlayer.Offset = Vector3.Lerp(StartOffset, EndOffset, runtime / Duration);
         }
     }
 }

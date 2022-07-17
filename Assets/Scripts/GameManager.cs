@@ -61,22 +61,14 @@ public partial class GameManager : MonoBehaviour, IDisposable
         if (playerCamera != null)
         {
             playerCamera.transform.SetPositionAndRotation(startPosition.Position + Vector3.up * 10, Quaternion.LookRotation(Vector3.down));
-            var camera = playerCamera.GetComponent<FollowPlayer>();
-            var cameraZoom = playerCamera.GetComponent<ZoomCameraIn>();
-
-            if (cameraZoom != null && camera != null)
-            {
-                cameraZoom.RunZoom();
-                cameraZoom.OnZoomFinished?.AddListener(OnZoomFinished);
-            }
         }
+
+        State = GameState.Playing;
+        playerController.State = PlayerState.Aiming;
     }
 
     private void OnZoomFinished()
     {
-        var cameraZoom = playerCamera.GetComponent<ZoomCameraIn>();
-        cameraZoom.OnZoomFinished?.RemoveListener(OnZoomFinished);
-
         State = GameState.Playing;
         playerController.State = PlayerState.Aiming;
     }
