@@ -14,7 +14,7 @@ public partial class GameManager : MonoBehaviour, IDisposable
     private void Start()
     {
         State = GameState.Starting;
-        LevelEventManager.ObjectiveAchieved?.AddListener(ObjectiveAchieved);
+        LevelEventManager.GoalAchieved?.AddListener(ObjectiveAchieved);
     }
 
     void ObjectiveAchieved(GoalType goalType, int score)
@@ -27,6 +27,6 @@ public partial class GameManager : MonoBehaviour, IDisposable
 
     public void Dispose()
     {
-        LevelEventManager.ObjectiveAchieved?.RemoveListener(ObjectiveAchieved);
+        LevelEventManager.GoalAchieved?.RemoveListener(ObjectiveAchieved);
     }
 }

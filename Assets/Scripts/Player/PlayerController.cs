@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour
         {
             //FIRE
             State = PlayerState.Flying;
+            LevelEventManager.Shot?.Invoke();
             DestroyShotIndicator();
             CreateDiceImpulse();
         }
@@ -136,8 +137,8 @@ public class PlayerController : MonoBehaviour
         yPos = Mathf.Min((0.5f + aimBoxHeight) * Screen.height, yPos);
         var xRotation = ((yPos - ((0.5f - aimBoxHeight) * Screen.height)) / (aimBoxHeight * 2 * Screen.height)) * maxYTrajectory;
 
-        Debug.Log(yRotation.ToString());
-        Debug.Log(xRotation.ToString());
+        // Debug.Log(yRotation.ToString());
+        // Debug.Log(xRotation.ToString());
 
         //calculate rotation
         return direction = Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(-xRotation, 0, 0) * Quaternion.Euler(0, -yRotation, 0) * Vector3.forward;
