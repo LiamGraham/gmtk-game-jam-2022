@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour, IDisposable
 {
@@ -91,6 +92,11 @@ public partial class GameManager : MonoBehaviour, IDisposable
             // TODO: show level end UI
 
             levelIndex++;
+
+            if (levelIndex == levelPrefabs.Count)
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
             StartLevel();
         }
     }
