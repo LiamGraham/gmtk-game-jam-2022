@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FollowPlayer : MonoBehaviour
 {
-    public GameObject Player;
+    // public GameObject Player;
     public Vector3 Offset = new Vector3(0, 0.5f, 0);
     public float MinDistance = 3f;
     public float InterpolationSpeed = 2f;
@@ -13,7 +13,12 @@ public class FollowPlayer : MonoBehaviour
     public float lookSense = 1f;
     public float maxZoom = 5f;
     public float minZoom = 0.5f;
+    private PlayerDice playerDice;
     CameraState cameraState = CameraState.Follow;
+
+    void Start() {
+        playerDice = PlayerDice.Instance;
+    }
 
     void LateUpdate()
     {
@@ -28,7 +33,7 @@ public class FollowPlayer : MonoBehaviour
     {
         float interpolationRatio = Mathf.Min(InterpolationSpeed * Time.deltaTime, 1);
         //current player direction
-        var playerDirection = Player.transform.position - transform.position;
+        var playerDirection = playerDice.WorldCenterOfMass - transform.position;
         //goal player direction
         playerDirection.y = 0;
         playerDirection = (playerDirection.normalized) * MinDistance;
@@ -36,7 +41,7 @@ public class FollowPlayer : MonoBehaviour
         //goal rotation
         var goalRotation = Quaternion.LookRotation(goalPlayerDirection, Vector3.up);
         //goal position
-        var goalPosition = Player.transform.position - goalPlayerDirection;
+        var goalPosition = playerDice.WorldCenterOfMass - goalPlayerDirection;
 
         // Here we use linear interpolation for smooth camera movement
         transform.position = EnableSmooth ? Vector3.Lerp(transform.position, goalPosition, interpolationRatio) : goalPosition;
@@ -44,23 +49,23 @@ public class FollowPlayer : MonoBehaviour
     }
 
     private void PositionFreeCamera() {
-        var distanceToTarget = (Player.transform.position - transform.position).magnitude;
+        var distanceToTarget = (playerDice.WorldCenterOfMass - transform.position).magnitude;
         //rotate around y axis axis
         var rotateHorizontal = Input.GetAxis("Mouse X");
-        transform.RotateAround(Player.transform.position, Vector3.up, rotateHorizontal);
+        transform.RotateAround(playerDice.WorldCenterOfMass, Vector3.up, rotateHorizontal);
         //rotate around x axis
         var rotateVertical = Input.GetAxis("Mouse Y");
-        transform.RotateAround(Player.transform.position, Vector3.left, rotateVertical);
+        transform.RotateAround(playerDice.WorldCenterOfMass, Vector3.left, rotateVertical);
         //handle zoom
         var scroll = Input.GetAxis("Mouse ScrollWheel");
         distanceToTarget = Mathf.Clamp(distanceToTarget * (1 - scroll), minZoom, maxZoom);
         //do zoom
-        this.transform.position = Player.transform.position;
+        this.transform.position = playerDice.WorldCenterOfMass;
 
         transform.Rotate(Vector3.left, rotateVertical);
         transform.Rotate(Vector3.up, rotateHorizontal, Space.World);
         transform.Translate(new Vector3(0,0,-distanceToTarget));
-        transform.LookAt(Player.transform);
+        transform.LookAt(playerDice.WorldCenterOfMass);
     }
 
     public void SetFreeCamera() {
