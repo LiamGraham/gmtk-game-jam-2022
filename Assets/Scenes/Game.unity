@@ -202,6 +202,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -4194529187774163994, guid: eb1d4fb1c4f2d834e81b0cacae8099aa, type: 3}
+      propertyPath: deathSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 74ac9d3dff8105a41afe775feadab900, type: 3}
     - target: {fileID: 337859349456564862, guid: eb1d4fb1c4f2d834e81b0cacae8099aa, type: 3}
       propertyPath: m_Name
       value: GlobalSound

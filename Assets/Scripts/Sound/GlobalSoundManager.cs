@@ -12,22 +12,31 @@ public class GlobalSoundManager : MonoBehaviour
 
     private AudioSource audioSource;
 
+    private static GlobalSoundManager _instance;
+    public static GlobalSoundManager Instance { get { return _instance; } }
+    void Awake()
+    {
+        if (_instance == null) {
+            _instance = this;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        AddSoundEvents();
+    }
+
+    void AddSoundEvents() {
+        LevelEventManager.GoalAchieved?.AddListener((GoalType _, int __) => Play(SoundEffect.MAIN_GOAL));
         LevelEventManager.PlayerDied?.AddListener(() => Play(SoundEffect.DEATH));
-        LevelEventManager.GoalAchieved?.AddListener((GoalType goalType, int score) => Play(SoundEffect.MAIN_GOAL));
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    void FadeAmbience() {
-
     }
 
     public void Play(SoundEffect sound) {
