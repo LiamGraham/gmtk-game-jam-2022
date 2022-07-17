@@ -86,6 +86,7 @@ public partial class GameManager : MonoBehaviour, IDisposable
         if (goalType == GoalType.Main)
         {
             State = GameState.LevelOver;
+            LevelEventManager.LevelEnded?.Invoke();
 
             // TODO: show level end UI
 
