@@ -42,6 +42,7 @@ public class UiNames : MonoBehaviour
     {
         animator.SetInteger("result", result);
         material.SetFloat("_lastOnTime", Time.time);
+        Debug.Log("NOW");
     }
 
     public void setAmplitude(float amplitude)

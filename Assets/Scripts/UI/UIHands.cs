@@ -95,7 +95,7 @@ public class UIHands : MonoBehaviour
     void setAmplitude()
     {
         //set amplitude in texture and send off info so that names can set amplitude
-        var intensity = Mathf.Clamp(clipLoudness / maxLoudness, 0.2f, 1f);
+        var intensity = Mathf.Clamp(clipLoudness / maxLoudness, 0f, 1f);
         Debug.Log(intensity.ToString());
         Debug.Log("Max Measured Loudness: ");
         Debug.Log(maxMeasuredLoudness.ToString());
