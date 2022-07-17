@@ -52,4 +52,6 @@ MonoBehaviour:
   aimBoxHeight: 0.4
   maxXTrajectory: 50
   maxImpulse: 8
-  defaultTorque: 30
+  maxTorque: 30
+  maxPowerSetting: 1
+  powerSensitivity: 1

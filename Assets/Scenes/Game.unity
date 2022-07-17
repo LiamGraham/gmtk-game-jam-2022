@@ -203,6 +203,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 390157082545072041, guid: c81fbe22dbdc4f34ead96b3e1bf973f7, type: 3}
+      propertyPath: maxTorque
+      value: 100000000
+      objectReference: {fileID: 0}
+    - target: {fileID: 390157082545072041, guid: c81fbe22dbdc4f34ead96b3e1bf973f7, type: 3}
       propertyPath: playerDice
       value: 
       objectReference: {fileID: 177370580}

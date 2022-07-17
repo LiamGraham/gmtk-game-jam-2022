@@ -17,7 +17,6 @@ public class ShotIndicator : MonoBehaviour
     void Start()
     {
         transform.rotation = Quaternion.LookRotation(-Vector3.up, Vector3.forward);
-        spriteRenderer = GetComponent<SpriteRenderer>();
         setPower(0.8f);
     }
 
@@ -30,8 +29,8 @@ public class ShotIndicator : MonoBehaviour
 
     public void setPower(float power) {
         //set power bounds from 0 to 1
-        power = Mathf.Max(0, power);
-        power = Mathf.Min(1, power);
+        power = Mathf.Clamp(power, 0f, 1f);
+        var spriteRenderer = GetComponent<SpriteRenderer>();
 
         //set length
         var newLength = minLength + (maxLength - minLength) * power;

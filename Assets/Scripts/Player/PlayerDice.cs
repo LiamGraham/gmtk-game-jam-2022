@@ -5,8 +5,7 @@ using UnityEngine.Events;
 
 public class PlayerDice : MonoBehaviour
 {
-    public float ImpluseForce = 5f;
-    public float ImplusePosition = 0.05f;
+    public float maxAngularVelocity = 500;
     public GameObject DiceVertexPrefab;
 
     new Rigidbody rigidbody;
@@ -45,6 +44,7 @@ public class PlayerDice : MonoBehaviour
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
+        rigidbody.maxAngularVelocity = maxAngularVelocity;
     }
 
     // Update is called once per frame
@@ -84,7 +84,7 @@ public class PlayerDice : MonoBehaviour
 
     public void AddTorque(Vector3 torque)
     {
-        rigidbody.AddTorque(torque, ForceMode.Impulse);
+        rigidbody.AddTorque(torque, ForceMode.VelocityChange);
     }
 
     void CreateVertexSensors()

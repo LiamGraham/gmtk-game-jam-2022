@@ -17,7 +17,12 @@ public class PlayerController : MonoBehaviour
     public float maxXTrajectory = 50f;
     //impulse member variables
     public float maxImpulse = 20f;
-    public float defaultTorque = 30f;
+    public float maxTorque = 1f;
+    //power settings
+    public float maxPowerSetting = 1f;
+    public float powerSensitivity = 0.1f;
+    float currentPowerSetting = 0.5f;
+    int previousRoll = 1;
 
     /// <summary>
     /// The current state of the player controller
@@ -68,9 +73,11 @@ public class PlayerController : MonoBehaviour
             AimPlayer();
         }
     }
+
     private void OnPlayerStationary(int result)
     {
         Debug.Log(result.ToString());
+        previousRoll = result;
         // If we're flying and now stationary, chage state to aiming
         if (State == PlayerState.Flying)
         {
@@ -91,14 +98,19 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        playerCamera.SetFollowCamera();
-
-        //right mouse not pressed, rotating changes arrow position
+        //right mouse not pressed, create shot indicator if null
         if (shotIndicator == null)
         {
             var position = playerDice.WorldCenterOfMass;
             shotIndicator = (Instantiate(shotIndicatorPrefab, position, Quaternion.identity)).GetComponent<ShotIndicator>();
         }
+
+        playerCamera.SetFollowCamera();
+
+        //power setting
+        var scroll = Input.GetAxis("Mouse ScrollWheel");
+        this.currentPowerSetting = Mathf.Clamp(currentPowerSetting + scroll * powerSensitivity, 0, maxPowerSetting);
+        shotIndicator.setPower(currentPowerSetting);
 
         var direction = GetDirection();
         shotIndicator.setDirection(direction);
@@ -141,17 +153,32 @@ public class PlayerController : MonoBehaviour
         return direction = Quaternion.LookRotation(direction, Vector3.up) * Quaternion.Euler(-xRotation, 0, 0) * Quaternion.Euler(0, -yRotation, 0) * Vector3.forward;
     }
 
-    private float GetMagnitude()
+    private float GetImpulseMagnitude()
     {
-        //temporary
-        return 1.0f * maxImpulse;
+        return (0.35f + currentPowerSetting) * maxImpulse;
+    }
+
+    private float GetTorqueMagnitude()
+    {
+        return (((float)previousRoll)/6f) * maxTorque;
     }
 
     private void CreateDiceImpulse()
     {
+        var direction = GetDirection();
+        var flatDirection = (new Vector3(direction.x, 0, direction.z)).normalized;
+        var rotation = Quaternion.LookRotation(flatDirection, Vector3.up);
+
         //get impulse amount
-        playerDice.AddForce(GetDirection() * GetMagnitude());
-        // playerDice.addTorque((new Vector3(1,0,0) * ));
+        var randDir = new List<Vector3> {
+            rotation * Vector3.right,
+            rotation * Vector3.left,
+            rotation * Vector3.forward,
+            rotation * Vector3.back,
+        };
+
+        playerDice.AddForce(GetDirection() * GetImpulseMagnitude());
+        playerDice.AddTorque(randDir[Random.Range(0, 4)] * GetTorqueMagnitude());
     }
 
     private void SetPreviousPlayerPosition()
