@@ -267,26 +267,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-      propertyPath: Levels.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-      propertyPath: Levels.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-      propertyPath: LevelPrefabs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-      propertyPath: LevelPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 5609640906237385088, guid: c572c89b04403f1498f7e0a32365179c, type: 3}
-    - target: {fileID: 1090022696, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
-      propertyPath: LevelPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 5609640906237385088, guid: 6b8556e45b3a97e4ab03ce006654dd45, type: 3}
     - target: {fileID: 2815256302964010552, guid: 95e55c25edce12146a36b69bf8bb4eb3, type: 3}
       propertyPath: m_RootOrder
       value: 3
