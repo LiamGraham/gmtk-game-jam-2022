@@ -53,7 +53,7 @@ MonoBehaviour:
   maxXTrajectory: 50
   maxImpulse: 8
   maxTorque: 25
-  maxPowerSetting: 1
+  maxPowerSetting: 0.4
   powerSensitivity: 1
   maxCurveMagnitude: 0.3
   velocityCurveThreshold: 0.1
