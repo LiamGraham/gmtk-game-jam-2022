@@ -11,13 +11,14 @@ public class Hover : MonoBehaviour
 
     void Start()
     {
-        startPosition = transform.position;
+        var material = GetComponent<MeshRenderer>().material;
+        material.SetFloat("MinWorldHeight", transform.position.y);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        var position = amplitude * Mathf.Sin(speed * Time.time);
-        transform.position = startPosition +  (Vector3.up * position);
+        var material = GetComponent<MeshRenderer>().material;
+        material.SetFloat("MinWorldHeight", transform.position.y);
     }
+
 }
