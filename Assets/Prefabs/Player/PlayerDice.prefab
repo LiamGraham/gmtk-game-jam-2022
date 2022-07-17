@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eee3729641df538488889aedbf6345bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clips:
+  bounceSounds:
   - {fileID: 8300000, guid: 5bdd879c32661ce42adff81cfb8d1d1f, type: 3}
   - {fileID: 8300000, guid: b1114cb79f2009648abf347add245473, type: 3}
   - {fileID: 8300000, guid: 936080f37871e404598eb4e436d0761e, type: 3}
@@ -279,6 +279,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 5c994d0457357f34cb54d6e168d94b85, type: 3}
   - {fileID: 8300000, guid: 43f9bbd9a1437944d9256781a5975e68, type: 3}
   - {fileID: 8300000, guid: 1cb4320884832f7409d850c30c88378e, type: 3}
+  strikeSound: {fileID: 8300000, guid: f755beb1456613248885bf8e8a517709, type: 3}
 --- !u!114 &6411407553922101897
 MonoBehaviour:
   m_ObjectHideFlags: 0

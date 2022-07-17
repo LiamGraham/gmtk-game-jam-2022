@@ -69,6 +69,12 @@ public class PlayerController : MonoBehaviour
     //referance to shotIndicator INSTANCE
     ShotIndicator shotIndicator;
 
+    void Awake() {
+        if (_instance == null) {
+            _instance = this;
+        }
+    }
+
     void Start()
     {
         State = PlayerState.Aiming;
@@ -78,10 +84,7 @@ public class PlayerController : MonoBehaviour
         // Add event listeners
         playerDice.OnPlayerStationary?.AddListener(OnPlayerStationary);
         LevelEventManager.PlayerDied?.AddListener(OnPlayerDied);
-
-        if (_instance == null) {
-            _instance = this;
-        }
+        // DiceCollisionManager.Collided?.AddListener(OnDiceCollision);
     }
 
     private void OnPlayerDied()

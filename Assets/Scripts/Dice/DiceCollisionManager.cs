@@ -18,7 +18,6 @@ public class DiceCollisionManager : MonoBehaviour
         if (_instance == null) {
             _instance = this;
         }
-        Collided.AddListener(OnCollision);
     }
 
     void Update() {
@@ -34,10 +33,9 @@ public class DiceCollisionManager : MonoBehaviour
         }
     }
 
-    void OnCollision() {
+    public void OnCollision() {
         if (!didCollide) {
-            DiceSoundController.Instance.Trigger();
-            PlayerController.Instance.OnDiceCollision();
+            Collided.Invoke();
             didCollide = true;
         }
     }
