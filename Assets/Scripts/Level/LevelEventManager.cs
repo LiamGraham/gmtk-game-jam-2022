@@ -6,6 +6,13 @@
 /// </summary>
 public static class LevelEventManager
 {
-    public static UnityEvent ObjectiveAchieved = new();
+    public static UnityEvent<GoalType, int> ObjectiveAchieved = new();
     public static UnityEvent Died = new();
+}
+
+public enum GoalType
+{
+    Main, 
+    Side,
+    Bonus
 }
