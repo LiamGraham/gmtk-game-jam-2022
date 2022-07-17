@@ -40,14 +40,14 @@ public partial class GameManager : MonoBehaviour, IDisposable
 
         var playerDice = PlayerDice.Instance;
         var startPosition = currentLevel.GetComponentInChildren<StartPosition>();
-        if (startPosition != null)
-        {
-            playerDice.ResetToPosition(startPosition.Position, startPosition.Rotation);
-        }
-        else
+
+        if (startPosition == null)
         {
             Debug.LogWarning($"{nameof(StartPosition)} not found on level. Please add a GameObject with a StartPosition provided");
+            return;
         }
+
+        playerDice.ResetToPosition(startPosition.Position, startPosition.Rotation);
 
         // TODO Stretch goal: Play overview / flyby animation?
 
