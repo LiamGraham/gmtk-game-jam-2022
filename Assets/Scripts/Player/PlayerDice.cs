@@ -19,7 +19,7 @@ public class PlayerDice : MonoBehaviour
     /// <summary>
     /// Triggered once the player dice has stopped moving, i.e. Velocity is 0 and angular momentum is 0.
     /// </summary>
-    public UnityEvent OnPlayerStationary;
+    public UnityEvent<int> OnPlayerStationary;
 
     private bool inMovement = false;
 
@@ -56,7 +56,7 @@ public class PlayerDice : MonoBehaviour
         }
         else if (inMovement && IsStationary())
         {
-            OnPlayerStationary.Invoke();
+            OnPlayerStationary.Invoke(calculateRollResult());
             inMovement = false;
         }
     }
@@ -72,8 +72,9 @@ public class PlayerDice : MonoBehaviour
 
     public bool IsStationary()
     {
-        return rigidbody.velocity.magnitude < 0.001
-            && rigidbody.angularVelocity.magnitude < 0.001;
+        // return rigidbody.velocity.magnitude < 0.001
+        //     && rigidbody.angularVelocity.magnitude < 0.001;
+        return rigidbody.IsSleeping();
     }
 
     public void AddForce(Vector3 force)
@@ -100,5 +101,30 @@ public class PlayerDice : MonoBehaviour
             Vector3 maxPos = (Quaternion.Euler(0, 90 * i, 0) * maxOffset) + diceBounds.center;
             Instantiate(DiceVertexPrefab, maxPos, Quaternion.identity, transform);
         }
+    }
+
+    int calculateRollResult() {
+        var dirList = new List<Vector3> {
+            new Vector3(0,1,0),
+            new Vector3(-1,0,0),
+            new Vector3(0,0,1),
+            new Vector3(0,0,-1),
+            new Vector3(1,0,0),
+            new Vector3(0,-1,0),
+        };
+
+        var rotation = transform.rotation;
+        var max_no = -1;
+        var max_product = -1f;
+
+        for (var i=0; i<6; i++) {
+            var product = Vector3.Dot(Vector3.up, (rotation * dirList[i]));
+            if (product > max_product) {
+                max_product = product;
+                max_no = i + 1;
+            }
+        }
+
+        return max_no;
     }
 }
