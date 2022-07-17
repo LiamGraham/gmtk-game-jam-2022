@@ -66,8 +66,11 @@ public class PlayerDice : MonoBehaviour
         transform.position = position;
         transform.rotation = rotation;
 
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.angularVelocity = Vector3.zero;
+        if (rigidbody != null)
+        {
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+        }
     }
 
     public bool IsStationary()

@@ -2,17 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ZoomCameraIn : MonoBehaviour
 {
-    public Vector3 StartOffset = new Vector3(10, 10, 0);
-    public Vector3 EndOffset = new Vector3(0, 0.5f, 0);
+    public Vector3 StartOffset = new(10, 10, 0);
+    public Vector3 EndOffset = new(0, 0.5f, 0);
     public float Duration = 1;
-    public bool RunOnStart = true;
+    public bool RunOnStart = false;
 
     private bool running = false;
     private FollowPlayer followPlayer;
     private float startTime;
+
+    public UnityEvent OnZoomFinished = new();
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +53,9 @@ public class ZoomCameraIn : MonoBehaviour
             {
                 running = false;
                 followPlayer.Offset = EndOffset;
+
+                // Notify that the zoom has finished playing
+                OnZoomFinished?.Invoke();
             }
 
             followPlayer.Offset = Vector3.Lerp(StartOffset, EndOffset, runtime / Duration);
