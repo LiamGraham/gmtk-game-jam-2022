@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
             AimPlayer();
         }
     }
-    private void OnPlayerStationary()
+    private void OnPlayerStationary(int result)
     {
         // If we're flying and now stationary, chage state to aiming
         if (State == PlayerState.Flying)

@@ -19,7 +19,7 @@ public class PlayerDice : MonoBehaviour
     /// <summary>
     /// Triggered once the player dice has stopped moving, i.e. Velocity is 0 and angular momentum is 0.
     /// </summary>
-    public UnityEvent OnPlayerStationary;
+    public UnityEvent<int> OnPlayerStationary;
 
     private bool inMovement = false;
 
@@ -56,7 +56,7 @@ public class PlayerDice : MonoBehaviour
         }
         else if (inMovement && IsStationary())
         {
-            OnPlayerStationary.Invoke();
+            OnPlayerStationary.Invoke(0);
             inMovement = false;
         }
     }
