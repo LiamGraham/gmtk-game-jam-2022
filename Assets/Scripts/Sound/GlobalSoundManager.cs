@@ -7,7 +7,6 @@ using UnityEngine;
  */
 public class GlobalSoundManager : MonoBehaviour
 {
-    public AudioClip ambienceSound;
     public AudioClip deathSound;
     public AudioClip mainGoalSound;
 
@@ -18,6 +17,7 @@ public class GlobalSoundManager : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         LevelEventManager.PlayerDied?.AddListener(() => Play(SoundEffect.DEATH));
+        LevelEventManager.GoalAchieved?.AddListener((GoalType goalType, int score) => Play(SoundEffect.MAIN_GOAL));
     }
 
     // Update is called once per frame
@@ -31,6 +31,7 @@ public class GlobalSoundManager : MonoBehaviour
     }
 
     public void Play(SoundEffect sound) {
+        Debug.Log("Playing " + sound.ToString() + " sound");
         AudioClip clip = null;
         switch (sound) {
             case SoundEffect.DEATH:
@@ -40,7 +41,8 @@ public class GlobalSoundManager : MonoBehaviour
                 clip = mainGoalSound; 
                 break;
             default:
-                break;
+                Debug.LogError("No matching sound");
+                return;
         }
 
         if (clip != null) {
